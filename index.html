@@ -1,0 +1,3066 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TJKT Learning Quest - SMKS Islam 1 Kota Blitar</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            cyber: {
+              50: '#ecfeff',
+              100: '#cffafe',
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+              800: '#155e75',
+              900: '#164e63',
+              dark: '#0b1120',
+              card: '#111e38',
+              border: '#1e293b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Proteksi Anti Copy & Anti AI Inspector */
+    .anti-select {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b1120;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0891b2;
+    }
+
+    /* Glow & Card effects */
+    .glow-cyan {
+      box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.35);
+    }
+    .glow-emerald {
+      box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.35);
+    }
+    .badge-hots {
+      background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+    }
+    .badge-medium {
+      background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+    }
+    .badge-easy {
+      background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+    }
+  </style>
+</head>
+<body class="bg-[#0b1120] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-cyan-500 selection:text-white">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+          <i class="fa-solid fa-network-wired text-white text-lg"></i>
+        </div>
+        <div>
+          <span class="text-xs uppercase tracking-wider font-mono text-cyan-400 font-bold block">SMKS ISLAM 1 KOTA BLITAR</span>
+          <h1 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+            TJKT Learning Quest
+            <span class="hidden md:inline-flex text-[10px] px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800">Kelas X Fase E</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Right Nav Status & Actions -->
+      <div class="flex items-center gap-3">
+        <div id="navUserBadge" class="hidden items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700">
+          <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+          <span id="navUserName" class="text-xs sm:text-sm font-medium text-slate-200">Siswa</span>
+          <span id="navUserClass" class="text-xs font-mono bg-cyan-950 text-cyan-400 px-2 py-0.5 rounded font-semibold border border-cyan-800">X TKJ</span>
+        </div>
+
+        <button id="btnSwitchToAdmin" onclick="openAdminModal()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-cyan-400 border border-slate-700 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-user-shield"></i>
+          <span class="hidden sm:inline">Portal Guru</span>
+        </button>
+
+        <button id="btnLogout" onclick="logoutStudent()" class="hidden px-2.5 py-1.5 rounded-lg text-xs font-medium text-rose-400 bg-rose-950/40 hover:bg-rose-900/60 border border-rose-800/50 transition">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-start">
+
+    <!-- VIEW 1: LOGIN VIEW -->
+    <div id="viewLogin" class="max-w-md w-full mx-auto my-auto py-8">
+      <div class="relative bg-slate-900/90 rounded-2xl border border-slate-800 p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
+        <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center backdrop-blur-md">
+          <i class="fa-solid fa-graduation-cap text-cyan-400 text-xl"></i>
+        </div>
+
+        <div class="text-center mt-4 mb-6">
+          <h2 class="text-2xl font-bold text-white tracking-tight">Selamat Datang!</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">E-Learning Dasar Kejuruan TJKT Semester Ganjil</p>
+          <div class="mt-2 text-[11px] text-cyan-300 bg-cyan-950/60 border border-cyan-800/80 px-2.5 py-1 rounded-md inline-block">
+            Guru Pengampu: <strong class="font-semibold">Fitri Ainun Rosita, S.Pd.</strong>
+          </div>
+        </div>
+
+        <form id="formLogin" onsubmit="handleLogin(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <i class="fa-solid fa-user text-cyan-400 mr-1.5"></i> Nama Lengkap Siswa
+            </label>
+            <input type="text" id="loginName" required placeholder="Contoh: Muhammad Rizky Pratama" 
+              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition text-sm">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <i class="fa-solid fa-users-rectangle text-cyan-400 mr-1.5"></i> Kelas Kejuruan
+            </label>
+            <select id="loginClass" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition text-sm">
+              <option value="" disabled selected>Pilih Rombongan Belajar</option>
+              <option value="X TKJ 1">X TKJ 1</option>
+              <option value="X TKJ 2">X TKJ 2</option>
+              <option value="X TKJ 3">X TKJ 3</option>
+            </select>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-800/50 border border-slate-700 text-xs text-slate-300 space-y-1">
+            <div class="flex items-center gap-1.5 font-semibold text-amber-400">
+              <i class="fa-solid fa-circle-exclamation"></i> Ketentuan KKM & Belajar:
+            </div>
+            <p>1. Standar KKM adalah <strong class="text-cyan-400">75</strong>.</p>
+            <p>2. Materi <strong class="text-emerald-400">wajib dibuka & dipelajari</strong> sebelum tombol kuis aktif.</p>
+            <p>3. Jika belum KKM, diberi <strong class="text-rose-400">1x kesempatan remidi</strong> setelah mengulang materi.</p>
+          </div>
+
+          <button type="submit" class="w-full py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-lg shadow-cyan-500/25 transition duration-200 transform hover:-translate-y-0.5 active:translate-y-0">
+            Masuk ke Petualangan Belajar <i class="fa-solid fa-arrow-right ml-1.5"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- VIEW 2: STUDENT DASHBOARD -->
+    <div id="viewDashboard" class="hidden space-y-6">
+      
+      <!-- Welcome & Hero Banner -->
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 border border-slate-800 p-6 sm:p-8">
+        <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-cyan-500/10 blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative z-10">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs px-2.5 py-0.5 rounded-full bg-cyan-900/60 text-cyan-300 border border-cyan-700 font-mono">Peserta Aktif</span>
+              <span id="dashClassBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-700 text-slate-200 font-mono">X TKJ 1</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Halo, <span id="dashStudentName" class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Siswa</span>!</h2>
+            <p class="text-sm text-slate-300 mt-1 max-w-xl">
+              Tuntaskan setiap tantangan modul dasar-dasar kejuruan TJKT. Pelajari infografis materi secara visual, lalu buktikan kompetensimu pada evaluasi bertingkat.
+            </p>
+          </div>
+
+          <!-- Overall Progress Card -->
+          <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-4 min-w-[240px] w-full md:w-auto shadow-inner">
+            <div class="flex justify-between items-center text-xs font-semibold mb-2">
+              <span class="text-slate-400 uppercase tracking-wider">Progres Ketuntasan</span>
+              <span id="dashOverallPercent" class="text-cyan-400 font-mono text-sm">0%</span>
+            </div>
+            <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+              <div id="dashProgressBar" class="bg-gradient-to-r from-cyan-400 to-emerald-400 h-full w-0 transition-all duration-500"></div>
+            </div>
+            <div class="mt-2 text-[11px] text-slate-400 flex justify-between">
+              <span>Target KKM: <b class="text-white">75</b></span>
+              <span id="dashTuntasCount">0 / 5 Modul Tuntas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAPTER CARDS GRID -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-layer-group text-cyan-400"></i>
+            Daftar Bab & Evaluasi Kompetensi
+          </h3>
+          <span class="text-xs text-slate-400">Alur Belajar Terstruktur (Sains & Industri Nyata)</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5" id="modulesContainer">
+          <!-- Dynamic Module Cards generated by JS -->
+        </div>
+
+        <!-- Final Exam Section (Full Width) -->
+        <div class="mt-6" id="finalExamCardContainer">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 3: VISUAL MATERIAL MODAL / VIEWER -->
+    <div id="viewMaterial" class="hidden space-y-6">
+      <div class="flex items-center justify-between bg-slate-900 border border-slate-800 rounded-xl p-4">
+        <button onclick="backToDashboard()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-2 transition">
+          <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+        </button>
+        <div class="text-center">
+          <span id="materialChapterTag" class="text-[11px] font-mono text-cyan-400 font-bold uppercase tracking-wider">Bab 1</span>
+          <h2 id="materialTitle" class="text-base sm:text-lg font-bold text-white">Judul Materi</h2>
+        </div>
+        <div id="materialTimerNotice" class="text-xs font-mono text-amber-400 bg-amber-950/60 border border-amber-800 px-3 py-1.5 rounded-lg flex items-center gap-2">
+          <i class="fa-solid fa-eye animate-bounce"></i>
+          <span>Wajib Dipelajari: <b id="materialStudyCountdown">10s</b></span>
+        </div>
+      </div>
+
+      <!-- Infographic / Visual Content Area -->
+      <div id="materialContentArea" class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-8 shadow-xl">
+        <!-- Rendered dynamically with rich visual diagrams, cards, comparisons -->
+      </div>
+
+      <div class="flex justify-end p-4 bg-slate-900/60 rounded-xl border border-slate-800">
+        <button id="btnFinishMaterial" onclick="confirmMaterialFinished()" disabled class="px-6 py-2.5 rounded-xl font-bold text-sm bg-slate-700 text-slate-400 cursor-not-allowed transition flex items-center gap-2">
+          <i class="fa-solid fa-lock" id="btnFinishMaterialIcon"></i>
+          <span id="btnFinishMaterialText">Membaca Materi (10s)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 4: QUIZ EXAM RUNNER (ANTI-COPY & GATED) -->
+    <div id="viewQuiz" class="hidden space-y-5 anti-select">
+      
+      <!-- Quiz Header & Security Warning Bar -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-cyan-950 border border-cyan-800 flex items-center justify-center text-cyan-400 font-bold font-mono">
+            Q
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span id="quizChapterBadge" class="text-[10px] font-mono uppercase bg-cyan-950 text-cyan-400 px-2 py-0.5 rounded border border-cyan-800 font-bold">Bab 1</span>
+              <span id="quizQuestionCountBadge" class="text-xs text-slate-400">Soal 1 dari 20</span>
+            </div>
+            <h2 id="quizTitle" class="text-sm sm:text-base font-bold text-white">Evaluasi Kompetensi</h2>
+          </div>
+        </div>
+
+        <!-- Security indicator -->
+        <div class="flex items-center gap-2 text-[11px] text-rose-300 bg-rose-950/60 border border-rose-800/80 px-3 py-1 rounded-lg">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Mode Ujian Terproteksi (Copy/Paste & AI Dinonaktifkan)</span>
+        </div>
+      </div>
+
+      <!-- Quiz Card -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl relative">
+        <!-- Question Meta & Difficulty Indicator -->
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div class="flex items-center gap-2">
+            <span id="quizDiffBadge" class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full text-white badge-hots">
+              HOTS
+            </span>
+            <span id="quizTypeBadge" class="text-[11px] font-semibold text-slate-300 bg-slate-800 px-2 py-0.5 rounded">
+              Pilihan Ganda
+            </span>
+          </div>
+          <div class="text-xs font-mono text-cyan-400">
+            Nomor: <span id="quizCurrentIndex" class="text-base font-bold">1</span> / <span id="quizTotalIndex">20</span>
+          </div>
+        </div>
+
+        <!-- Question Text & Visual Stimulus (if any) -->
+        <div class="space-y-4">
+          <div id="quizQuestionStimulus" class="hidden p-4 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-cyan-300 whitespace-pre-line">
+            <!-- Code snippet, network scenario, or diagram -->
+          </div>
+          <h3 id="quizQuestionText" class="text-base sm:text-lg font-semibold text-slate-100 leading-relaxed">
+            <!-- Soal Text -->
+          </h3>
+          <p id="quizMultiSelectNotice" class="hidden text-xs text-amber-400 font-medium italic">
+            *Pilihan Ganda Kompleks: Anda dapat memilih lebih dari satu jawaban yang benar.
+          </p>
+        </div>
+
+        <!-- Options Container -->
+        <div id="quizOptionsContainer" class="space-y-3 pt-2">
+          <!-- Option elements generated dynamically -->
+        </div>
+
+        <!-- Quiz Navigation Footer -->
+        <div class="border-t border-slate-800 pt-5 flex items-center justify-between">
+          <button id="btnQuizPrev" onclick="quizPrevQuestion()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed">
+            <i class="fa-solid fa-chevron-left"></i> Sebelumnya
+          </button>
+
+          <!-- Question Grid Quick Access (Drawer Button) -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-400 hidden sm:inline">Periksa seluruh jawaban sebelum submit</span>
+          </div>
+
+          <button id="btnQuizNext" onclick="quizNextQuestion()" class="px-5 py-2 rounded-xl text-xs font-bold bg-cyan-600 hover:bg-cyan-500 text-white transition flex items-center gap-1.5 shadow-md shadow-cyan-600/20">
+            Selanjutnya <i class="fa-solid fa-chevron-right"></i>
+          </button>
+          
+          <button id="btnQuizSubmit" onclick="quizSubmitConfirmation()" class="hidden px-6 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center gap-1.5 shadow-lg shadow-emerald-600/30">
+            <i class="fa-solid fa-check-double"></i> Selesai & Kumpulkan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 5: QUIZ RESULT SUMMARY MODAL / SCREEN -->
+    <div id="viewQuizResult" class="hidden max-w-xl w-full mx-auto my-auto py-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 text-center space-y-6 shadow-2xl relative">
+        <div id="resultIconWrapper" class="w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl shadow-xl">
+          <!-- Dynamically filled -->
+        </div>
+
+        <div>
+          <span id="resultChapterTitle" class="text-xs font-mono text-cyan-400 uppercase font-semibold">Hasil Evaluasi Bab 1</span>
+          <h2 id="resultStatusHeading" class="text-2xl font-black text-white mt-1">STATUS KELULUSAN</h2>
+          <p id="resultFeedbackMsg" class="text-sm text-slate-300 mt-2">Pesan feedback edukatif.</p>
+        </div>
+
+        <!-- Score Breakdown Cards -->
+        <div class="grid grid-cols-3 gap-3 py-2">
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-400 uppercase font-semibold">Skor Anda</span>
+            <div id="resultScoreValue" class="text-2xl font-black text-cyan-400 font-mono mt-1">0</div>
+          </div>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-400 uppercase font-semibold">Batas KKM</span>
+            <div class="text-2xl font-black text-amber-400 font-mono mt-1">75</div>
+          </div>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-400 uppercase font-semibold">Kesempatan</span>
+            <div id="resultAttemptValue" class="text-xs font-bold text-slate-200 mt-2">Remidi 1x</div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="space-y-2 pt-2">
+          <button id="btnResultRemedy" onclick="startRemedialStudy()" class="hidden w-full py-2.5 rounded-xl text-sm font-bold bg-amber-600 hover:bg-amber-500 text-white transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-book-open-reader"></i> Pelajari Ulang Materi & Mulai Remidi
+          </button>
+          
+          <button id="btnResultContinue" onclick="backToDashboard()" class="w-full py-2.5 rounded-xl text-sm font-bold bg-cyan-600 hover:bg-cyan-500 text-white transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-house"></i> Kembali ke Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 6: GURU / ADMIN PORTAL -->
+    <div id="viewAdminPortal" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800 font-mono font-bold">Portal Guru</span>
+            <span class="text-xs text-slate-400">SMKS Islam 1 Kota Blitar</span>
+          </div>
+          <h2 class="text-xl font-bold text-white mt-1">Rekapitulasi Nilai & Aktivitas Siswa</h2>
+          <p class="text-xs text-slate-400">Guru Pengampu: Fitri Ainun Rosita, S.Pd. — Mapel: Dasar-dasar Kejuruan TJKT</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="exportToCSV()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center gap-2 shadow-lg shadow-emerald-600/20">
+            <i class="fa-solid fa-file-excel"></i> Download Rekap (CSV/Excel)
+          </button>
+          <button onclick="openAppsScriptModal()" class="px-3 py-2 rounded-xl text-xs font-semibold bg-indigo-900/60 hover:bg-indigo-800 text-indigo-300 border border-indigo-700 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Google Apps Script
+          </button>
+          <button onclick="closeAdminPortal()" class="px-3 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 transition">
+            Keluar Portal
+          </button>
+        </div>
+      </div>
+
+      <!-- Google Sheets Endpoint Config Banner -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-table-cells text-emerald-400 text-base"></i>
+          <div>
+            <span class="font-semibold text-slate-200 block">Integrasi Google Sheets Realtime</span>
+            <span class="text-slate-400 text-[11px]" id="gasStatusText">Status: Tersambung secara lokal & siap POST ke Apps Script.</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 w-full md:w-auto">
+          <input type="text" id="inputGasUrl" placeholder="Tempel URL Web App Google Apps Script di sini..." 
+            class="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-slate-200 text-xs w-full md:w-80 focus:border-cyan-500 focus:outline-none">
+          <button onclick="saveGasUrl()" class="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg text-xs transition">
+            Simpan
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter & Search Controls -->
+      <div class="flex flex-col sm:flex-row gap-3 items-center justify-between bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <label class="text-xs text-slate-400 font-semibold">Filter Rombel:</label>
+          <select id="adminFilterClass" onchange="renderAdminTable()" class="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-slate-200 text-xs focus:outline-none focus:border-cyan-500">
+            <option value="ALL">Semua Kelas (X TKJ 1, 2, 3)</option>
+            <option value="X TKJ 1">X TKJ 1</option>
+            <option value="X TKJ 2">X TKJ 2</option>
+            <option value="X TKJ 3">X TKJ 3</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <i class="fa-solid fa-magnifying-glass text-slate-500 text-xs"></i>
+          <input type="text" id="adminSearchStudent" oninput="renderAdminTable()" placeholder="Cari nama siswa..." 
+            class="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-slate-200 text-xs w-full sm:w-64 focus:outline-none focus:border-cyan-500">
+        </div>
+      </div>
+
+      <!-- Students Progress Table -->
+      <div class="overflow-x-auto bg-slate-900 border border-slate-800 rounded-2xl shadow-xl">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-950/80 border-b border-slate-800 text-slate-400 uppercase font-mono tracking-wider">
+              <th class="p-3.5">No</th>
+              <th class="p-3.5">Nama Siswa</th>
+              <th class="p-3.5">Kelas</th>
+              <th class="p-3.5 text-center">Bab 1</th>
+              <th class="p-3.5 text-center">Bab 2</th>
+              <th class="p-3.5 text-center">Bab 3</th>
+              <th class="p-3.5 text-center">Bab 4</th>
+              <th class="p-3.5 text-center">Final Exam</th>
+              <th class="p-3.5 text-center">Status Akhir</th>
+              <th class="p-3.5 text-center">Aksi Guru</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody" class="divide-y divide-slate-800/60 font-sans">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: ADMIN PIN LOGIN -->
+  <div id="modalAdminPin" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-sm w-full space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-lock text-cyan-400"></i> Autentikasi Guru Pengampu
+        </h3>
+        <button onclick="closeAdminPinModal()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p class="text-xs text-slate-300">
+        Masukkan kode akses otorisasi guru untuk masuk ke lembar penilaian dan progres:
+      </p>
+      <div>
+        <input type="password" id="inputAdminPin" placeholder="Ketik PIN (Default: 123456)" 
+          class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 text-center font-mono text-lg tracking-widest focus:outline-none focus:border-cyan-500">
+        <p class="text-[10px] text-slate-500 mt-1 text-center">PIN default guru: 123456</p>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="closeAdminPinModal()" class="w-1/2 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">Batal</button>
+        <button onclick="verifyAdminPin()" class="w-1/2 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold shadow-md shadow-cyan-600/30">Buka Akses</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GOOGLE APPS SCRIPT TUTORIAL & SCRIPT -->
+  <div id="modalAppsScript" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-2xl w-full space-y-4 max-h-[90vh] flex flex-col shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-brands fa-google text-emerald-400"></i> Kode Google Apps Script (Code.gs)
+        </h3>
+        <button onclick="closeAppsScriptModal()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="text-xs text-slate-300 space-y-2 overflow-y-auto pr-1">
+        <p>Guru dapat menghubungkan aplikasi ini ke <strong>Google Spreadsheet</strong> agar jawaban dan nilai tersimpan otomatis serta siswa dapat dihapus sinkron:</p>
+        <ol class="list-decimal pl-4 space-y-1 text-slate-400">
+          <li>Buka Google Sheets baru & Beri nama: <code>Rekap Nilai TJKT X - Ibu Fitri</code>.</li>
+          <li>Klik menu <strong>Extensions (Ekstensi) > Apps Script</strong>.</li>
+          <li>Hapus kode bawaan dan tempel kode di bawah ini, lalu klik <strong>Deploy > New deployment</strong>.</li>
+          <li>Pilih jenis <strong>Web app</strong>, setting <em>Who has access</em> ke <strong>Anyone</strong>.</li>
+          <li>Salin Web App URL dan tempelkan pada kolom URL di panel guru.</li>
+        </ol>
+
+        <div class="relative mt-2">
+          <button onclick="copyGasCode()" class="absolute top-2 right-2 px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-cyan-400 font-mono border border-slate-700">
+            <i class="fa-regular fa-copy"></i> Salin Kode
+          </button>
+          <pre id="gasCodeText" class="p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-emerald-400 overflow-x-auto leading-relaxed">
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    
+    // Fitur Hapus Siswa Otomatis dari Panel Guru
+    if (data.action === "DELETE_STUDENT") {
+      var rows = sheet.getDataRange().getValues();
+      for (var i = rows.length - 1; i >= 1; i--) {
+        if (rows[i][1] === data.studentName && rows[i][2] === data.studentClass) {
+          sheet.deleteRow(i + 1);
+        }
+      }
+      return ContentService.createTextOutput(JSON.stringify({result: "deleted"})).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // Auto Create Headers jika sheet masih kosong
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Timestamp", "Nama Lengkap", "Kelas", "Bab 1", "Bab 2", "Bab 3", "Bab 4", "Final Exam", "Status Akhir"]);
+      sheet.getRange(1, 1, 1, 9).setFontWeight("bold").setBackground("#0891b2").setFontColor("#ffffff");
+    }
+    
+    // Cari apakah siswa sudah ada di baris spreadsheet
+    var rows = sheet.getDataRange().getValues();
+    var rowIndex = -1;
+    for (var r = 1; r < rows.length; r++) {
+      if (rows[r][1] === data.studentName && rows[r][2] === data.studentClass) {
+        rowIndex = r + 1;
+        break;
+      }
+    }
+    
+    var time = new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" });
+    
+    if (rowIndex > 0) {
+      // Update data baris siswa
+      sheet.getRange(rowIndex, 1).setValue(time);
+      if (data.bab1 !== undefined) sheet.getRange(rowIndex, 4).setValue(data.bab1);
+      if (data.bab2 !== undefined) sheet.getRange(rowIndex, 5).setValue(data.bab2);
+      if (data.bab3 !== undefined) sheet.getRange(rowIndex, 6).setValue(data.bab3);
+      if (data.bab4 !== undefined) sheet.getRange(rowIndex, 7).setValue(data.bab4);
+      if (data.finalExam !== undefined) sheet.getRange(rowIndex, 8).setValue(data.finalExam);
+      if (data.status !== undefined) sheet.getRange(rowIndex, 9).setValue(data.status);
+    } else {
+      // Baris baru
+      sheet.appendRow([
+        time,
+        data.studentName,
+        data.studentClass,
+        data.bab1 || 0,
+        data.bab2 || 0,
+        data.bab3 || 0,
+        data.bab4 || 0,
+        data.finalExam || 0,
+        data.status || "Belum Tuntas"
+      ]);
+    }
+    
+    return ContentService.createTextOutput(JSON.stringify({result: "success"})).setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({result: "error", message: err.toString()})).setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}</pre>
+        </div>
+      </div>
+      <div class="flex justify-end pt-2">
+        <button onclick="closeAppsScriptModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION TOAST MESSAGE CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-4 right-4 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- EMBEDDED JAVASCRIPT LOGIC & CURRICULUM DATA -->
+  <script>
+    /* ========================================================
+       1. INITIAL DATA & CURRICULUM MATERIAL DEFINITIONS
+       TP 1-8 Semester Ganjil Fase E Kelas X SMKS Islam 1 Blitar
+       ======================================================== */
+    const MODULES = [
+      {
+        id: "bab1",
+        number: 1,
+        title: "Profesi & Kualifikasi Kerja TJKT",
+        tp: "TP 1 & TP 2 (Job Profile & Kualifikasi Karier)",
+        icon: "fa-user-tie",
+        color: "cyan",
+        description: "Mengenal profil profesi Network Engineer, Cyber Security, Cloud Architect, Teknisi ISP, serta sertifikasi global (MTCNA, CCNA, CompTIA+).",
+        questionsCount: 20,
+        visualInfographic: `
+          <div class="space-y-6">
+            <div class="p-4 rounded-xl bg-cyan-950/40 border border-cyan-800/80">
+              <h4 class="text-sm font-bold text-cyan-300 flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-compass"></i> Ruang Lingkup & Peta Profesi TJKT (TP 1)
+              </h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Di era konvergensi jaringan, dunia industri TJKT terbagi menjadi spesialisasi infrastruktur, keamanan siber, komputasi awan, dan operasional layanan pelanggan telekomunikasi.
+              </p>
+            </div>
+
+            <!-- Visual Comparison Grid of 5 Key Professions -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-server"></i></span>
+                  <h5 class="text-xs font-bold text-white">1. Network Engineer</h5>
+                </div>
+                <p class="text-xs text-slate-300">Merancang topologi LAN/WAN, routing (OSPF, BGP), switching VLAN, dan memastikan latensi rendah antar titik jaringan.</p>
+                <div class="text-[11px] text-cyan-400 font-mono">Sertifikasi: MikroTik MTCNA / MTCRE, Cisco CCNA.</div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-shield-virus"></i></span>
+                  <h5 class="text-xs font-bold text-white">2. Cyber Security Specialist</h5>
+                </div>
+                <p class="text-xs text-slate-300">Menjaga CIA Triad (Confidentiality, Integrity, Availability), analisis firewall, IDS/IPS, serta mitigasi insiden serangan siber (DDoS, phishing).</p>
+                <div class="text-[11px] text-rose-400 font-mono">Sertifikasi: CompTIA Security+, CEH (Certified Ethical Hacker).</div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-cloud"></i></span>
+                  <h5 class="text-xs font-bold text-white">3. Cloud Network Architect</h5>
+                </div>
+                <p class="text-xs text-slate-300">Membangun interkoneksi infrastruktur lokal hybrid ke penyedia komputasi awan (AWS, Google Cloud, Azure) menggunakan Virtual Private Cloud.</p>
+                <div class="text-[11px] text-purple-400 font-mono">Sertifikasi: AWS Solutions Architect, Google Cloud Associate.</div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-tower-broadcast"></i></span>
+                  <h5 class="text-xs font-bold text-white">4. Teknisi Jaringan ISP / Fiber Optic</h5>
+                </div>
+                <p class="text-xs text-slate-300">Implementasi penarikan kabel fiber optik, fusion splicing, pengukuran redaman OPM dan OTDR, serta instalasi ODP / ONT di rumah pelanggan.</p>
+                <div class="text-[11px] text-emerald-400 font-mono">Kompetensi: K3 Ketinggian, Fiber Optic Certified Technician.</div>
+              </div>
+            </div>
+
+            <!-- Matriks Perbandingan Karier (TP 2) -->
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+              <h5 class="text-xs font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-stairs text-amber-400"></i> Jenjang Karier Industri Telekomunikasi (TP 2)
+              </h5>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div class="p-3 rounded-lg bg-slate-900 border border-slate-800">
+                  <div class="font-bold text-cyan-300 mb-1">Tingkat Entry-Level</div>
+                  <p class="text-slate-400">Helpdesk Support, Teknisi Penarikan Kabel Drop Core, Junior Operator NOC.</p>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-900 border border-slate-800">
+                  <div class="font-bold text-amber-300 mb-1">Tingkat Mid-Level</div>
+                  <p class="text-slate-400">Network Administrator, Security Analyst L2, RF / Wireless Field Engineer.</p>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-900 border border-slate-800">
+                  <div class="font-bold text-rose-300 mb-1">Tingkat Expert/Senior</div>
+                  <p class="text-slate-400">Principal Network Architect, CISO (Chief Information Security Officer), IT Consultant.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: "bab2",
+        number: 2,
+        title: "Proses Bisnis & Alur Kerja Layanan TJKT",
+        tp: "TP 3 & TP 4 (Alur ISP, Survey, SLA, & Pemeliharaan)",
+        icon: "fa-diagram-project",
+        color: "blue",
+        description: "Mempelajari siklus bisnis penyedia layanan internet (ISP), tahapan site survey, deployment perangkat, Service Level Agreement (SLA), hingga preventive maintenance.",
+        questionsCount: 20,
+        visualInfographic: `
+          <div class="space-y-6">
+            <div class="p-4 rounded-xl bg-blue-950/40 border border-blue-800/80">
+              <h4 class="text-sm font-bold text-blue-300 flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-arrows-split-up-and-left"></i> Tahapan Proses Bisnis Industri Layanan Internet / ISP (TP 3)
+              </h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Penyedia Jasa Internet (ISP) tidak hanya menjual kabel, melainkan memberikan jaminan konektivitas berkualitas (QoS) dengan alur operasional yang terintegrasi antar divisi.
+              </p>
+            </div>
+
+            <!-- Workflow Steps Diagram -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+              <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <span class="text-xs font-mono font-bold text-cyan-400">TAHAP 01</span>
+                <h5 class="text-xs font-bold text-white">Inquiry & Pre-Survey</h5>
+                <p class="text-[11px] text-slate-300">Sales menerima permintaan bandwidth pelanggan. Tim teknis melakukan validasi kelayakan jarak ODP / Tiang FO terdekat.</p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <span class="text-xs font-mono font-bold text-cyan-400">TAHAP 02</span>
+                <h5 class="text-xs font-bold text-white">Instalasi & Aktivasi</h5>
+                <p class="text-[11px] text-slate-300">Penarikan drop wire FO, terminasi roset & modem ONT, konfigurasi PPPoE / Static IP dari router sentral.</p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <span class="text-xs font-mono font-bold text-cyan-400">TAHAP 03</span>
+                <h5 class="text-xs font-bold text-white">NOC Monitoring & SLA</h5>
+                <p class="text-[11px] text-slate-300">Network Operation Center (NOC) mengawasi uptime 99.5%, latency, dan packet loss sesuai kontrak Service Level Agreement.</p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <span class="text-xs font-mono font-bold text-cyan-400">TAHAP 04</span>
+                <h5 class="text-xs font-bold text-white">Maintenance & Billing</h5>
+                <p class="text-[11px] text-slate-300">Pembersihan berkala konektor optik, update firmware router, penanganan cut fiber optik, dan siklus tagihan bulanan.</p>
+              </div>
+            </div>
+
+            <!-- Bagan Alur Kerja & Keterkaitan Antar Bagian (TP 4) -->
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+              <h5 class="text-xs font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-network-wired text-cyan-400"></i> Integrasi Lintas Divisi dalam Menangani Gangguan (Incident Workflow)
+              </h5>
+              <div class="p-3 rounded-lg bg-slate-900 font-mono text-[11px] text-slate-300 space-y-1">
+                <div>[Pelanggan Lapor Gangguan Internet Drop] ➔ <span class="text-cyan-300">Helpdesk L1</span> (Buat Tiket Gangguan)</div>
+                <div>➔ <span class="text-amber-300">NOC Tier 2</span> (Ping & Telusuri Port Switch / OLT)</div>
+                <div>➔ Ditemukan Redaman Loss > -28 dBm ➔ <span class="text-rose-400">Field Technician L3</span> (Splicing kabel putus di lapangan)</div>
+                <div>➔ Tes Akhir OPM redaman kembali normal (-18 dBm) ➔ <span class="text-emerald-400">Tiket Closed & Konfirmasi ke Pelanggan</span>.</div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: "bab3",
+        number: 3,
+        title: "Budaya Mutu, 5R & K3LH Perawatan Jaringan",
+        tp: "TP 5 & TP 6 (Budaya Kerja 5R & Praktik K3LH Laboratorium)",
+        icon: "fa-shield-heart",
+        color: "emerald",
+        description: "Penerapan kaizen/5R (Ringkas, Rapi, Resik, Rawat, Rajin), keselamatan kerja listrik statis (ESD), standar APD laboratorium, dan bahaya serat kaca optik.",
+        questionsCount: 20,
+        visualInfographic: `
+          <div class="space-y-6">
+            <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-800/80">
+              <h4 class="text-sm font-bold text-emerald-300 flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-leaf"></i> Prinsip 5R (5S Jepang) pada Laboratorium & Ruang Server TJKT (TP 5)
+              </h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Kerapian kabel dan kebersihan ruangan server berpengaruh langsung terhadap suhu sirkulasi udara (airflow) dan keawetan perangkat jaringan aktif.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
+              <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-center">
+                <div class="w-8 h-8 mx-auto rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs mb-1">1</div>
+                <h6 class="text-xs font-bold text-white">Ringkas (Seiri)</h6>
+                <p class="text-[10px] text-slate-400 mt-1">Pilah kabel rusak, sisa core optik, dan kemasan yang tak terpakai untuk disingkirkan.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-center">
+                <div class="w-8 h-8 mx-auto rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xs mb-1">2</div>
+                <h6 class="text-xs font-bold text-white">Rapi (Seiton)</h6>
+                <p class="text-[10px] text-slate-400 mt-1">Manajemen kabel dengan spiral wrap, cable duct, dan penomoran label port patch panel.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-center">
+                <div class="w-8 h-8 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs mb-1">3</div>
+                <h6 class="text-xs font-bold text-white">Resik (Seiso)</h6>
+                <p class="text-[10px] text-slate-400 mt-1">Bersihkan debu kipas switch & heksagonal server menggunakan vacuum blower anti-statis.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-center">
+                <div class="w-8 h-8 mx-auto rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs mb-1">4</div>
+                <h6 class="text-xs font-bold text-white">Rawat (Seiketsu)</h6>
+                <p class="text-[10px] text-slate-400 mt-1">Membuat checklist SOP mingguan pemeriksaan temperatur ruang server (18°C - 22°C).</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-center">
+                <div class="w-8 h-8 mx-auto rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs mb-1">5</div>
+                <h6 class="text-xs font-bold text-white">Rajin (Shitsuke)</h6>
+                <p class="text-[10px] text-slate-400 mt-1">Menjadikan disiplin K3LH dan etika kerja sebagai kebiasaan tanpa harus diawasi guru/instruktur.</p>
+              </div>
+            </div>
+
+            <!-- Prosedur K3LH Keselamatan Serat Optik & Listrik (TP 6) -->
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+              <h5 class="text-xs font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-rose-400"></i> Bahaya Spesifik pada Praktik TJKT & SOP Wajib
+              </h5>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
+                  <span class="font-bold text-rose-400">1. Pecahan Kaca Fiber Optik</span>
+                  <p class="text-slate-300">Serpihan core kaca sangat halus dan transparan. Jika tertusuk kulit atau terhirup dapat masuk ke peredaran darah. Wajib sediakan kotak limbah core khusus dan kacamata pelindung.</p>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
+                  <span class="font-bold text-amber-400">2. Laser Tak Kasat Mata (Invisible Laser)</span>
+                  <p class="text-slate-300">Sinar laser transmitter optik (panjang gelombang 1310nm/1550nm) tidak terlihat mata telanjang. Dilarang keras menatap langsung ujung konektor fiber optik aktif!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: "bab4",
+        number: 4,
+        title: "Pelayanan Pelanggan & Helpdesk TJKT",
+        tp: "TP 7 & TP 8 (Standar Layanan Helpdesk & Evaluasi CSAT)",
+        icon: "fa-headset",
+        color: "indigo",
+        description: "Standar operasional helpdesk IT, teknik komunikasi empati, troubleshooting bertingkat (L1, L2, L3), dan pengukuran indikator kepuasan pelanggan (CSAT/NPS).",
+        questionsCount: 20,
+        visualInfographic: `
+          <div class="space-y-6">
+            <div class="p-4 rounded-xl bg-indigo-950/40 border border-indigo-800/80">
+              <h4 class="text-sm font-bold text-indigo-300 flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-comments"></i> Service Excellence & Komunikasi Profesional Helpdesk (TP 7)
+              </h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Keahlian teknis tinggi akan sia-sia jika tidak diimbangi keramahan, kemampuan mendengar aktif, dan penanganan komplain pelanggan yang terstruktur.
+              </p>
+            </div>
+
+            <!-- Helpdesk Tiers Comparison -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <div class="text-cyan-400 font-bold text-xs flex items-center gap-1.5 font-mono">
+                  <i class="fa-solid fa-phone"></i> TIER 1 / HELPDESK
+                </div>
+                <h5 class="text-xs font-bold text-white">Penerimaan & Solusi Cepat</h5>
+                <p class="text-[11px] text-slate-300">Menerima telepon, verifikasi identitas ID pelanggan, logging tiket gangguan, panduan restart modem/cek lampu indikator LOS.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <div class="text-amber-400 font-bold text-xs flex items-center gap-1.5 font-mono">
+                  <i class="fa-solid fa-laptop-code"></i> TIER 2 / TECH SUPPORT
+                </div>
+                <h5 class="text-xs font-bold text-white">Analisis Konfigurasi Lanjutan</h5>
+                <p class="text-[11px] text-slate-300">Remote router CPE, reset password PPPoE, pengecekan binding MAC address, analisis utilisasi bandwidth dan QoS pelanggan.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <div class="text-rose-400 font-bold text-xs flex items-center gap-1.5 font-mono">
+                  <i class="fa-solid fa-screwdriver-wrench"></i> TIER 3 / FIELD SPECIALIST
+                </div>
+                <h5 class="text-xs font-bold text-white">Penanganan Lapangan & Fisik</h5>
+                <p class="text-[11px] text-slate-300">Perbaikan kabel FO putus di tiang publik, penggantian modul SFP OLT yang terbakar, konfigurasi core router backbone.</p>
+              </div>
+            </div>
+
+            <!-- Metrik Evaluasi CSAT & SLA (TP 8) -->
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+              <h5 class="text-xs font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-emerald-400"></i> Indikator Keberhasilan Layanan (TP 8)
+              </h5>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div class="p-3 rounded-lg bg-slate-900 border border-slate-800">
+                  <span class="font-bold text-cyan-300">MTTR (Mean Time to Resolution)</span>
+                  <p class="text-slate-400 mt-1">Rata-rata waktu yang dibutuhkan tim dari tiket dibuat sampai masalah internet pelanggan kembali normal.</p>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-900 border border-slate-800">
+                  <span class="font-bold text-emerald-300">CSAT (Customer Satisfaction Score)</span>
+                  <p class="text-slate-400 mt-1">Survei bintang 1-5 setelah tiket selesai untuk mengevaluasi kesopanan staf dan kecepatan solusi teknis.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    /* ========================================================
+       2. REALISTIC & SCIENTIFICALLY ACCURATE QUESTION BANK
+       20 Questions Per Chapter (Mudah, Sedang, HOTS, Kompleks)
+       35 Questions for Final Exam
+       ======================================================== */
+    const QUESTION_BANK = {
+      bab1: [
+        {
+          id: "b1_1",
+          level: "Mudah",
+          type: "single",
+          question: "Profesi dalam bidang TJKT yang bertugas merancang skema jaringan, mengatur routing protokol, dan memelihara switch serta router perusahaan disebut...",
+          options: [
+            "a. Database Administrator",
+            "b. Network Engineer",
+            "c. Web Developer",
+            "d. UI/UX Designer",
+            "e. Technical Copywriter"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b1_2",
+          level: "Mudah",
+          type: "single",
+          question: "Sertifikasi internasional tingkat dasar untuk perangkat routing MikroTik yang sangat populer di kalangan siswa SMK TJKT adalah...",
+          options: [
+            "a. CCNA Routing and Switching",
+            "b. CompTIA Linux+",
+            "c. MTCNA (MikroTik Certified Network Associate)",
+            "d. AWS Certified Cloud Practitioner",
+            "e. CEH (Certified Ethical Hacker)"
+          ],
+          correct: [2]
+        },
+        {
+          id: "b1_3",
+          level: "Sedang",
+          type: "single",
+          question: "Seorang profesional keamanan siber bertanggung jawab menjaga prinsip 'CIA Triad'. Komponen 'I' dalam akronim tersebut merepresentasikan...",
+          options: [
+            "a. Identification (Identifikasi user)",
+            "b. Internet (Konektivitas web)",
+            "c. Integrity (Keaslian dan keutuhan data agar tidak dimanipulasi)",
+            "d. Inspection (Pemeriksaan paket)",
+            "e. Infrastructure (Ketersediaan server)"
+          ],
+          correct: [2]
+        },
+        {
+          id: "b1_4",
+          level: "Sedang",
+          type: "single",
+          question: "Manakah pasangan antara sertifikasi jaringan global dengan vendor penerbit yang tepat?",
+          options: [
+            "a. CCNA - Juniper Networks",
+            "b. MTCNA - Cisco Systems",
+            "c. JNCIA - MikroTik SIA",
+            "d. Security+ - CompTIA",
+            "e. HCIA - Amazon Web Services"
+          ],
+          correct: [3]
+        },
+        {
+          id: "b1_5",
+          level: "HOTS",
+          type: "multiple",
+          question: "Sebuah perusahaan perbankan membutuhkan tenaga IT yang mampu mencegah serangan phishing, menganalisis kebocoran data, dan melakukan uji penetrasi kerentanan server. Kualifikasi dan sertifikasi yang paling relevan untuk lowongan ini adalah: (Pilih 2 jawaban yang benar)",
+          options: [
+            "a. Berpengalaman dalam pengujian keamanan dengan sertifikasi CEH / CompTIA Security+",
+            "b. Mahir desain grafis menggunakan CorelDraw dan Canva",
+            "c. Memahami konsep firewall, deteksi anomali paket IDS/IPS, dan mitigasi DDoS",
+            "d. Ahli dalam merangkai instalasi kabel listrik tegangan tinggi tiga fase",
+            "e. Memiliki sertifikat operator mesin bubut manufaktur"
+          ],
+          correct: [0, 2]
+        },
+        {
+          id: "b1_6",
+          level: "Mudah",
+          type: "single",
+          question: "Teknisi yang berfokus melakukan instalasi fisik penarikan kabel fiber optik, penyambungan core dengan fusion splicer, dan pengecekan redaman sinyal di lapangan disebut...",
+          options: [
+            "a. Cloud Architect",
+            "b. Frontend Developer",
+            "c. Teknisi Fiber Optic / Field Technician",
+            "d. Data Analyst",
+            "e. Mobile App Tester"
+          ],
+          correct: [2]
+        },
+        {
+          id: "b1_7",
+          level: "Sedang",
+          type: "single",
+          question: "Apa peran utama seorang Cloud Network Engineer dalam arsitektur komputasi modern?",
+          options: [
+            "a. Memasang kabel UTP antar meja kantor",
+            "b. Menghubungkan jaringan lokal (on-premise) ke infrastruktur cloud publik (AWS/GCP/Azure) secara aman",
+            "c. Memperbaiki printer yang mengalami paper jam",
+            "d. Menjual kartu perdana kuota internet kepada masyarakat",
+            "e. Mengganti monitor komputer yang rusak di laboratorium"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b1_8",
+          level: "Sedang",
+          type: "single",
+          question: "Dalam jenjang karier TJKT, posisi entry-level yang biasanya bertugas menerima pengaduan gangguan awal dari pelanggan via telepon atau live chat adalah...",
+          options: [
+            "a. Chief Technology Officer (CTO)",
+            "b. Principal Network Architect",
+            "c. Helpdesk / IT Support Tier 1",
+            "d. Senior Cybersecurity Auditor",
+            "e. Lead Database Engineer"
+          ],
+          correct: [2]
+        },
+        {
+          id: "b1_9",
+          level: "HOTS",
+          type: "single",
+          question: "Rian adalah lulusan SMK TJKT yang memiliki sertifikasi MTCNA dan menguasai teknik routing BGP dasar. Saat melamar kerja di sebuah ISP regional, ia ditugaskan memantau traffic peering link interkoneksi utama. Posisi divisi operasional yang paling sesuai untuk Rian adalah...",
+          options: [
+            "a. Marketing Digital",
+            "b. Finance and Tax",
+            "c. NOC (Network Operation Center) Engineer",
+            "d. Human Resources Department",
+            "e. Legal Compliance"
+          ],
+          correct: [2]
+        },
+        {
+          id: "b1_10",
+          level: "Mudah",
+          type: "single",
+          question: "Organisasi nirlaba independen asal Amerika Serikat yang mengeluarkan sertifikasi netral vendor seperti Network+ dan Security+ adalah...",
+          options: [
+            "a. CompTIA",
+            "b. Cisco",
+            "c. Huawei",
+            "d. MikroTik",
+            "e. Oracle"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b1_11",
+          level: "Sedang",
+          type: "multiple",
+          question: "Kompetensi teknis (hard skills) fundamental yang wajib dikuasai oleh seorang calon Network Administrator meliputi: (Pilih 2 jawaban yang benar)",
+          options: [
+            "a. Pemahaman konsep subnetting IP Address IPv4 dan IPv6",
+            "b. Kemampuan editing video sinematik dengan Adobe Premiere",
+            "c. Konfigurasi VLAN (Virtual LAN) dan keamanan port switch",
+            "d. Keahlian memasak standar restoran bintang lima",
+            "e. Penataan panggung tata suara konser musik"
+          ],
+          correct: [0, 2]
+        },
+        {
+          id: "b1_12",
+          level: "Mudah",
+          type: "single",
+          question: "Profesi yang secara khusus merancang dan mengimplementasikan perangkat pintar terkoneksi sensor nirkabel (seperti smart home, sensor suhu IoT) di jaringan adalah...",
+          options: [
+            "a. IoT (Internet of Things) Engineer",
+            "b. Sound Engineer",
+            "c. Public Relations Officer",
+            "d. Content Writer",
+            "e. Copy Editor"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b1_13",
+          level: "Sedang",
+          type: "single",
+          question: "Jenjang karier tertinggi dalam manajemen keamanan informasi di sebuah korporasi besar yang memegang tanggung jawab strategis setingkat direktur adalah...",
+          options: [
+            "a. Junior Helpdesk",
+            "b. CISO (Chief Information Security Officer)",
+            "c. Data Entry Staff",
+            "d. Magang IT",
+            "e. Teknisi Crimping"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b1_14",
+          level: "HOTS",
+          type: "single",
+          question: "Sebuah rumah sakit membutuhkan jaminan bahwa rekam medis pasien tidak dapat dibaca oleh pihak luar yang menyadap jaringan Wi-Fi mereka. Pilar keamanan siber yang paling terancam jika data tersebut bocor tanpa enkripsi adalah...",
+          options: [
+            "a. Availability",
+            "b. Confidentiality (Kerahasiaan)",
+            "c. Scalability",
+            "d. Redundancy",
+            "e. Durability"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b1_15",
+          level: "Mudah",
+          type: "single",
+          question: "Kemampuan non-teknis (soft skills) yang sangat krusial bagi teknisi jaringan saat berhadapan dengan pengguna yang komplain adalah...",
+          options: [
+            "a. Komunikasi empatik dan kesabaran mendengar",
+            "b. Kemampuan mengabaikan telepon komplain",
+            "c. Nada bicara yang ketus dan terburu-buru",
+            "d. Berdebat hingga pelanggan merasa bersalah",
+            "e. Menutup telepon saat masalah belum jelas"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b1_16",
+          level: "Sedang",
+          type: "single",
+          question: "Alat portabel yang wajib dibawa teknisi fiber optik untuk mendeteksi titik putus serat optik secara visual dengan sorotan sinar laser merah adalah...",
+          options: [
+            "a. VFL (Visual Fault Locator)",
+            "b. Obeng kembang",
+            "c. Tang crimping RJ45",
+            "d. Multimeter analog",
+            "e. Gergaji besi"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b1_17",
+          level: "HOTS",
+          type: "multiple",
+          question: "Seorang siswa SMK TJKT ingin membangun personal branding profesional di dunia kerja digital sebelum lulus. Langkah efektif yang dapat diambil adalah: (Pilih 2 jawaban yang tepat)",
+          options: [
+            "a. Membuat akun LinkedIn profesional dan mendokumentasikan proyek lab jaringan yang pernah dikerjakan",
+            "b. Mengunggah sertifikat pelatihan resmi dan portofolio topologi jaringan di media sosial profesional",
+            "c. Menyebarkan rumor negatif tentang industri teknologi di forum internet",
+            "d. Membeli sertifikat palsu tanpa pernah mengikuti ujian kompetensi",
+            "e. Menyimpan hasil tugas praktik di flashdisk tanpa pernah berbagi ilmu"
+          ],
+          correct: [0, 1]
+        },
+        {
+          id: "b1_18",
+          level: "Mudah",
+          type: "single",
+          question: "Profesi yang bertugas mengelola sistem operasi server (seperti Linux Debian/Ubuntu Server atau Windows Server) agar layanan web dan email selalu aktif adalah...",
+          options: [
+            "a. System Administrator (Sysadmin)",
+            "b. Interior Designer",
+            "c. Translator",
+            "d. Sales Executive",
+            "e. Kasir Toko"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b1_19",
+          level: "Sedang",
+          type: "single",
+          question: "Apa tujuan utama seseorang mengambil sertifikasi keahlian berstandar internasional di bidang jaringan komputer?",
+          options: [
+            "a. Hanya untuk dipamerkan di dinding rumah",
+            "b. Sebagai bukti validasi kompetensi standar industri yang diakui secara global",
+            "c. Supaya tidak perlu lagi belajar teknologi baru seumur hidup",
+            "d. Menghindari jam kerja saat bekerja di kantor",
+            "e. Mendapatkan akses gratis ke semua jaringan Wi-Fi publik"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b1_20",
+          level: "HOTS",
+          type: "single",
+          question: "Analisis studi kasus: Sebuah startup logistik mengalami gangguan server down setiap akhir pekan akibat lonjakan pesanan. Untuk menyelesaikan masalah ini tanpa harus membeli banyak fisik server baru, keahlian profesi manakah yang paling mendesak dibutuhkan?",
+          options: [
+            "a. Desainer grafis kemasan produk",
+            "b. Cloud Solutions Architect untuk merancang sistem auto-scaling elastis di cloud",
+            "c. Ahli reparasi printer dot-matrix",
+            "d. Operator telepon konvensional",
+            "e. Teknisi instalasi kabel telepon tembaga zaman dahulu"
+          ],
+          correct: [1]
+        }
+      ],
+      bab2: [
+        {
+          id: "b2_1",
+          level: "Mudah",
+          type: "single",
+          question: "Singkatan dari ISP dalam industri penyedia layanan telekomunikasi internet adalah...",
+          options: [
+            "a. Internet Service Provider",
+            "b. Internal System Protocol",
+            "c. International Security Program",
+            "d. Integrated Software Product",
+            "e. Interconnected Signal Port"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b2_2",
+          level: "Mudah",
+          type: "single",
+          question: "Kegiatan peninjauan lapangan yang dilakukan teknisi ISP sebelum menarik kabel ke rumah pelanggan untuk mengukur jarak tiang dan ketersediaan port ODP disebut...",
+          options: [
+            "a. Termination",
+            "b. Site Survey",
+            "c. Splicing",
+            "d. Formatting",
+            "e. Defragmenting"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b2_3",
+          level: "Sedang",
+          type: "single",
+          question: "Dokumen kesepakatan formal antara penyedia jasa internet dan pelanggan yang memuat garansi persentase waktu uptime (misalnya 99.5%) disebut...",
+          options: [
+            "a. NDA (Non-Disclosure Agreement)",
+            "b. SLA (Service Level Agreement)",
+            "c. SOP (Standard Operating Procedure)",
+            "d. K3LH (Kesehatan Keselamatan Kerja)",
+            "e. MoU (Memorandum of Understanding)"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b2_4",
+          level: "Sedang",
+          type: "single",
+          question: "Perangkat di sisi pelanggan yang bertugas mengubah sinyal cahaya dari kabel fiber optik menjadi sinyal digital ethernet kabel UTP dan Wi-Fi adalah...",
+          options: [
+            "a. OLT (Optical Line Terminal)",
+            "b. ODF (Optical Distribution Frame)",
+            "c. ONT / ONU (Optical Network Terminal)",
+            "d. Splicer",
+            "e. Cleaver"
+          ],
+          correct: [2]
+        },
+        {
+          id: "b2_5",
+          level: "HOTS",
+          type: "multiple",
+          question: "Di pusat operasi jaringan (NOC), insinyur jaringan memonitor traffic bandwidth menggunakan protokol SNMP. Parameter penting yang diamati untuk menjaga kualitas layanan jaringan (QoS) meliputi: (Pilih 2 parameter)",
+          options: [
+            "a. Latensi (Latency / Round Trip Time) dan jitter",
+            "b. Packet Loss (persentase paket yang hilang selama transmisi)",
+            "c. Warna casing komputer monitor pelanggan",
+            "d. Merek meja kantor yang digunakan staf",
+            "e. Ketebalan lapisan cat dinding ruang server"
+          ],
+          correct: [0, 1]
+        },
+        {
+          id: "b2_6",
+          level: "Mudah",
+          type: "single",
+          question: "Divisi dalam perusahaan ISP yang bertugas secara aktif memantau layar grafik lalu lintas data dan mendeteksi link putus selama 24 jam penuh adalah...",
+          options: [
+            "a. Divisi Marketing",
+            "b. NOC (Network Operation Center)",
+            "c. Divisi Legalitas Hukum",
+            "d. Divisi Gudang dan Logistik",
+            "e. Bagian Pajak Perusahaan"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b2_7",
+          level: "Sedang",
+          type: "single",
+          question: "Dalam alur penanganan komplain pelanggan di ISP, urutan eskalasi tiket gangguan yang paling logis dan standar adalah...",
+          options: [
+            "a. Tier 3 Lapangan ➔ Tier 1 Helpdesk ➔ Direktur",
+            "b. Pelanggan ➔ Helpdesk (L1) ➔ NOC Support (L2) ➔ Field Technician / Specialist (L3)",
+            "c. Teknisi Lapangan ➔ Pelanggan ➔ Kasir",
+            "d. Helpdesk ➔ Satpam Kantor ➔ Pelanggan",
+            "e. NOC Langsung ➔ Pembayaran Tagihan ➔ Helpdesk"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b2_8",
+          level: "Sedang",
+          type: "single",
+          question: "Kotak distribusi kabel fiber optik yang terpasang di tiang listrik jalanan dan berfungsi membagi kabel utama ke beberapa kabel drop pelanggan dinamakan...",
+          options: [
+            "a. ODP (Optical Distribution Point)",
+            "b. OLT (Optical Line Terminal)",
+            "c. Patch Cord",
+            "d. Pigtail",
+            "e. Barrel Connector"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b2_9",
+          level: "HOTS",
+          type: "single",
+          question: "Sebuah ISP menjanjikan SLA sebesar 99.0% uptime per bulan (30 hari = 720 jam). Jika dalam 1 bulan terjadi total downtime jaringan selama 12 jam, apakah ISP tersebut melanggar SLA?",
+          options: [
+            "a. Tidak melanggar, karena downtime masih di bawah batas toleransi 50 jam",
+            "b. Melanggar SLA, karena batas maksimal downtime 1% dari 720 jam adalah 7.2 jam",
+            "c. Tidak melanggar, asalkan pelanggan tetap membayar iuran penuh",
+            "d. Melanggar, karena standar internet sama sekali tidak boleh down 1 detik pun",
+            "e. Tidak dapat dihitung karena bergantung pada cuaca"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b2_10",
+          level: "Mudah",
+          type: "single",
+          question: "Aktivitas pemeliharaan jaringan terjadwal yang bertujuan mencegah terjadinya kerusakan perangkat sebelum terjadi gangguan disebut...",
+          options: [
+            "a. Reactive Maintenance",
+            "b. Preventive Maintenance",
+            "c. Disaster Recovery",
+            "d. Emergency Response",
+            "e. Total Shutdown"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b2_11",
+          level: "Sedang",
+          type: "multiple",
+          question: "Faktor apa sajakah yang dapat menyebabkan penurunan kualitas redaman cahaya pada kabel transmisi serat optik di jalur luar gedung? (Pilih 2 jawaban yang benar)",
+          options: [
+            "a. Tekukan kabel melebihi batas radius lentur (macro-bending)",
+            "b. Kualitas penyambungan core (splicing) yang kotor atau tidak presisi",
+            "c. Kecepatan kipas laptop pengguna di dalam kamar",
+            "d. Pemilihan tema warna wallpaper di desktop komputer",
+            "e. Jenis browser yang digunakan untuk mengakses media sosial"
+          ],
+          correct: [0, 1]
+        },
+        {
+          id: "b2_12",
+          level: "Mudah",
+          type: "single",
+          question: "Penyedia layanan yang menyediakan jalur pipa koneksi internet antar benua berkapasitas sangat besar dan menjual bandwidth ke ISP lokal disebut penyedia level...",
+          options: [
+            "a. Tier 1 Backbone Provider",
+            "b. Warung Internet RT/RW",
+            "c. Reseller Voucher Wi-Fi",
+            "d. Rental Komputer",
+            "e. Agen Pulsa Elektrik"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b2_13",
+          level: "Sedang",
+          type: "single",
+          question: "Dalam proses bisnis ISP, dokumen BAST ditandatangani pelanggan setelah instalasi selesai dan uji kecepatan berhasil. BAST merupakan singkatan dari...",
+          options: [
+            "a. Berita Acara Serah Terima",
+            "b. Bukti Akhir Selesai Tugas",
+            "c. Biaya Administrasi Saluran Terpasang",
+            "d. Badan Akreditasi Sinyal Telekomunikasi",
+            "e. Berkas Asli Saldo Terbayar"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b2_14",
+          level: "HOTS",
+          type: "single",
+          question: "Sebuah kantor instansi pemerintah mengalami putusnya koneksi internet secara mendadak. Tim NOC mendeteksi alarm LOS (Loss of Signal) dari OLT. Tim lapangan segera dikirim membawa OTDR dan menemukan pantulan anomali pada jarak 1.4 km dari kantor ISP. Analisis tindakan teknisi yang paling tepat adalah...",
+          options: [
+            "a. Meminta pelanggan mematikan komputer lalu instal ulang Windows",
+            "b. Menuju titik koordinat 1.4 km untuk memeriksa kabel udara yang putus akibat pohon tumbang dan menyambungnya kembali",
+            "c. Mengganti semua kabel LAN di dalam ruang server pelanggan",
+            "d. Menaikkan harga paket langganan secara sepihak",
+            "e. Membiarkan masalah sampai cuaca berganti musim"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b2_15",
+          level: "Mudah",
+          type: "single",
+          question: "Alat pengukur kekuatan sinyal optik (daya optik dalam satuan dBm) yang digunakan teknisi untuk memastikan sinyal sampai di modem pelanggan adalah...",
+          options: [
+            "a. OPM (Optical Power Meter)",
+            "b. Termometer suhu ruangan",
+            "c. Barometer tekanan udara",
+            "d. Tespen listrik",
+            "e. Jangka sorong"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b2_16",
+          level: "Sedang",
+          type: "single",
+          question: "Berapakah rentang standar kekuatan redaman optik (daya terima RX) yang ideal dan sehat pada perangkat ONT GPON di rumah pelanggan agar internet stabil?",
+          options: [
+            "a. Antara -15 dBm sampai -24 dBm",
+            "b. Antara -45 dBm sampai -70 dBm",
+            "c. Di atas +20 dBm",
+            "d. Harus tepat 0 dBm tanpa toleransi",
+            "e. Antara -80 dBm sampai -100 dBm"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b2_17",
+          level: "HOTS",
+          type: "multiple",
+          question: "Mengapa pemeliharaan dokumentasi denah jaringan (as-built drawing) sangat penting dalam keberlangsungan proses bisnis ISP? (Pilih 2 alasan yang tepat)",
+          options: [
+            "a. Mempercepat teknisi baru menemukan lokasi sambungan kabel dan ODP saat terjadi insiden gangguan di lapangan",
+            "b. Menghindari kesalahan pemotongan kabel aktif milik pelanggan lain saat penambahan jalur baru",
+            "c. Menambah beban memori komputer kantor tanpa fungsi praktis",
+            "d. Sebagai hiasan pelengkap bingkai dinding resepsionis semata",
+            "e. Agar pelanggan dapat membongkar sendiri tiang jaringan di depan rumahnya"
+          ],
+          correct: [0, 1]
+        },
+        {
+          id: "b2_18",
+          level: "Mudah",
+          type: "single",
+          question: "Proses pemberian alamat IP unik secara otomatis kepada perangkat pelanggan oleh router ISP umumnya menggunakan protokol...",
+          options: [
+            "a. DHCP (Dynamic Host Configuration Protocol)",
+            "b. HTTP",
+            "c. FTP",
+            "d. SMTP",
+            "e. ICMP"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b2_19",
+          level: "Sedang",
+          type: "single",
+          question: "Jika lampu indikator 'LOS' (Loss of Signal) pada modem ONT fiber optik pelanggan berkedip merah terang, hal tersebut menandakan bahwa...",
+          options: [
+            "a. Kuota internet pelanggan habis",
+            "b. Tidak ada sinyal cahaya optik yang diterima modem (kabel putus/tertekuk/sumber mati)",
+            "c. Komputer pengguna terkena virus",
+            "d. Password Wi-Fi salah dimasukkan",
+            "e. Kecepatan internet sedang berada pada titik tertinggi"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b2_20",
+          level: "HOTS",
+          type: "single",
+          question: "Studi kasus: ISP 'Blitar Berdikari' memiliki alur instalasi baru rata-rata 5 hari kerja. Pesaing baru mampu menyelesaikan instalasi dalam 24 jam dengan sistem otomatisasi registrasi dan survey berbasis GIS (geografis digital). Rekomendasi perbaikan proses bisnis yang paling strategis bagi manajemen ISP adalah...",
+          options: [
+            "a. Mengabaikan inovasi pesaing dan tetap bertahan dengan pencatatan manual buku tulis",
+            "b. Mendigitalkan alur survey berbasis aplikasi mobile terintegrasi peta jalur ODP dan tiket digital",
+            "c. Mengurangi gaji teknisi lapangan agar biaya operasional turun drastis",
+            "d. Mematikan sambungan internet pelanggan yang lama",
+            "e. Menghentikan penerimaan pelanggan baru untuk selamanya"
+          ],
+          correct: [1]
+        }
+      ],
+      bab3: [
+        {
+          id: "b3_1",
+          level: "Mudah",
+          type: "single",
+          question: "Konsep budaya kerja 5R diadopsi dari budaya industri manufaktur Jepang yang dikenal dengan istilah 5S. Kata 'Ringkas' merupakan terjemahan dari...",
+          options: [
+            "a. Seiri",
+            "b. Seiton",
+            "c. Seiso",
+            "d. Seiketsu",
+            "e. Shitsuke"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b3_2",
+          level: "Mudah",
+          type: "single",
+          question: "Tindakan menata kabel jaringan di rak server menggunakan cable management/duct dan memberi label nama port secara teratur merupakan cerminan prinsip 5R, yaitu...",
+          options: [
+            "a. Rapi (Seiton)",
+            "b. Rusak",
+            "c. Ragu",
+            "d. Rombeng",
+            "e. Reaktif"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b3_3",
+          level: "Sedang",
+          type: "single",
+          question: "Bahaya utama yang paling fatal dari sisa potongan serat optik (core glass shards) saat proses stripping dan cleaving di laboratorium adalah...",
+          options: [
+            "a. Bau asap yang menyengat di ruangan",
+            "b. Pecahan kaca mikro transparan dapat menusuk kulit, masuk ke aliran darah, atau terhirup",
+            "c. Mengeluarkan medan magnet berkekuatan tinggi",
+            "d. Membuat lantai laboratorium menjadi licin oleh minyak",
+            "e. Merusak sinyal gelombang radio handphone"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b3_4",
+          level: "Sedang",
+          type: "single",
+          question: "ESD (Electrostatic Discharge) dapat merusak komponen elektronik mikro seperti chipset router dan RAM. Alat pelindung diri (APD) standar yang dipakai di pergelangan tangan untuk mencegah ESD adalah...",
+          options: [
+            "a. Jam tangan mekanik",
+            "b. Gelang anti-statis (Anti-static wrist strap)",
+            "c. Gelang karet gelang",
+            "d. Manset kain batik",
+            "e. Sarung tangan kulit tebal las"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b3_5",
+          level: "HOTS",
+          type: "multiple",
+          question: "Saat praktikum perawatan perangkat jaringan di laboratorium komputer, siswa menemukan rak server penuh debu tebal dan kabel power bersilangan tanpa grounding. Tindakan K3LH dan 5R yang tepat adalah: (Pilih 2 tindakan)",
+          options: [
+            "a. Mematikan aliran listrik utama sebelum membersihkan debu dengan kuas anti-statis dan mini vacuum blower",
+            "b. Memisahkan jalur kabel daya (power AC) dari kabel data UTP agar tidak terjadi interferensi elektromagnetik dan bahaya korsleting",
+            "c. Menyemprotkan air sabun langsung ke dalam sirkuit switch yang sedang menyala",
+            "d. Mengikat kabel power yang terkelupas menggunakan isolasi kertas biasa",
+            "e. Membiarkan debu menumpuk karena debu berfungsi sebagai isolator alami yang baik"
+          ],
+          correct: [0, 1]
+        },
+        {
+          id: "b3_6",
+          level: "Mudah",
+          type: "single",
+          question: "Kepanjangan dari K3LH dalam standar pembelajaran kejuruan teknik adalah...",
+          options: [
+            "a. Keamanan, Kenyamanan, Ketertiban Lingkungan Hidup",
+            "b. Keselamatan dan Kesehatan Kerja serta Lingkungan Hidup",
+            "c. Keterampilan Kerja Khusus Lembaga Harian",
+            "d. Kursus Komputer Kejuruan Luar Halaman",
+            "e. Kesepakatan Kelompok Kerja Lintas Harian"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b3_7",
+          level: "Sedang",
+          type: "single",
+          question: "Jenis Alat Pemadam Api Ringan (APAR) yang paling aman digunakan untuk memadamkan kebakaran akibat hubungan arus pendek pada perangkat komputer server adalah...",
+          options: [
+            "a. APAR berbahan Air (Water pressurized)",
+            "b. APAR berbahan Gas Karbon Dioksida (CO2) atau Clean Agent",
+            "c. APAR berbahan Busa Basah (Foam)",
+            "d. Ember berisi air garam",
+            "e. Pasir basah berlumpur"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b3_8",
+          level: "Sedang",
+          type: "single",
+          question: "Mengapa teknisi dilarang keras melihat langsung ke ujung konektor kabel fiber optik yang sedang aktif terhubung ke perangkat pemancar (SFP/Transceiver)?",
+          options: [
+            "a. Karena ujung konektor sangat kotor oleh minyak",
+            "b. Karena sinar laser infra-merah tidak terlihat mata namun memiliki intensitas yang dapat membakar retina mata secara permanen",
+            "c. Karena konektor mengeluarkan suara frekuensi tinggi yang memekakkan telinga",
+            "d. Karena kabel akan langsung putus jika ditatap mata",
+            "e. Karena akan terjadi kebocoran kuota internet pelanggan"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b3_9",
+          level: "HOTS",
+          type: "single",
+          question: "Dalam implementasi 'Resik (Seiso)', bagaimana korelasi antara pembersihan debu secara berkala pada heatsink router server terhadap efisiensi kinerja jaringan?",
+          options: [
+            "a. Debu tidak memiliki korelasi apapun terhadap kinerja sistem jaringan",
+            "b. Debu yang menumpuk menghambat disipasi panas, menyebabkan thermal throttling prosesor turun, bahkan restart mendadak (downtime)",
+            "c. Semakin banyak debu, transfer data di kabel fiber optik akan semakin cepat",
+            "d. Debu berfungsi mendinginkan suhu transistor dalam sirkuit elektronik",
+            "e. Pembersihan debu justru merusak garansi resmi pabrik secara otomatis"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b3_10",
+          level: "Mudah",
+          type: "single",
+          question: "SOP (Standar Operasional Prosedur) dalam laboratorium komputer SMKS Islam 1 Blitar berfungsi sebagai...",
+          options: [
+            "a. Panduan acuan resmi dan terstandar agar setiap aktivitas kerja terlaksana secara aman, tertib, dan konsisten",
+            "b. Hiasan dinding agar laboratorium terlihat mewah saat difoto",
+            "c. Dokumen rahasia yang tidak boleh dibaca oleh siswa maupun guru",
+            "d. Catatan keluhan siswa yang disimpan di laci",
+            "e. Buku daftar hadir tamu undangan perpisahan"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b3_11",
+          level: "Sedang",
+          type: "multiple",
+          question: "Alat Pelindung Diri (APD) wajib yang harus digunakan teknisi saat melakukan penarikan kabel drop core fiber optik di tiang udara pinggir jalan raya meliputi: (Pilih 2 APD)",
+          options: [
+            "a. Helm pengaman (Safety Helmet) berstandar SNI",
+            "b. Sabuk pengaman panjat tiang (Full Body Harness)",
+            "c. Sandal jepit karet tipis",
+            "d. Baju tidur piyama santai",
+            "e. Kacamata renang air tawar"
+          ],
+          correct: [0, 1]
+        },
+        {
+          id: "b3_12",
+          level: "Mudah",
+          type: "single",
+          question: "Wadah khusus yang harus disiapkan di atas meja kerja saat memotong serat optik agar pecahan kaca tidak berhamburan dinamakan...",
+          options: [
+            "a. Fiber Disposal Box / Waste Container",
+            "b. Piring makan keramik",
+            "c. Tas ransel sekolah",
+            "d. Saku celana seragam",
+            "e. Tempat pensil kain"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b3_13",
+          level: "Sedang",
+          type: "single",
+          question: "Suhu ruangan server (Data Center) yang ideal menurut standar mutu industri telekomunikasi umumnya dipertahankan pada rentang suhu...",
+          options: [
+            "a. 18°C sampai 22°C dengan kelembaban terjaga",
+            "b. 40°C sampai 50°C agar komponen cepat kering",
+            "c. Di bawah -10°C sampai komponen membeku",
+            "d. 35°C sampai 38°C sama dengan suhu tubuh demam",
+            "e. Mengikuti suhu cuaca luar tanpa alat pengatur udara pendingin"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b3_14",
+          level: "HOTS",
+          type: "single",
+          question: "Seorang siswa sedang melakukan crimping kabel UTP RJ45. Saat memotong kabel, siswa menggunakan gunting kuku tumpul sehingga jaket kabel robek tidak rata dan serabut tembaga terpotong miring. Pelanggaran budaya mutu yang terjadi pada kasus ini adalah...",
+          options: [
+            "a. Mengabaikan pemilihan alat potong khusus (wire stripper & crimping tool berkualitas) yang menjamin presisi pin tembaga",
+            "b. Siswa terlalu cepat menyelesaikan tugas sebelum jam pulang",
+            "c. Menggunakan kabel UTP kategori Cat 6 yang terlalu tebal",
+            "d. Tidak menyanyi saat sedang melakukan praktik perakitan kabel",
+            "e. Menyimpan gunting kuku di dalam laci tertutup"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b3_15",
+          level: "Mudah",
+          type: "single",
+          question: "Penerapan prinsip 'Rawat (Seiketsu)' dalam lingkungan laboratorium komputer bertujuan untuk...",
+          options: [
+            "a. Memelihara dan membakukan kondisi standar 3R sebelumnya secara berkelanjutan melalui checklist kontrol",
+            "b. Membuang semua komputer lama ke tempat sampah",
+            "c. Mengunci laboratorium agar tidak boleh ada siswa yang masuk belajar",
+            "d. Menempelkan stiker lucu di layar monitor komputer",
+            "e. Membeli perangkat baru setiap minggu"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b3_16",
+          level: "Sedang",
+          type: "single",
+          question: "Cairan khusus berkadar kemurnian tinggi yang digunakan untuk membersihkan debu mikroskopis dan sisa minyak pada ujung ferrule konektor fiber optik adalah...",
+          options: [
+            "a. Alkohol Isopropil (IPA) dengan kadar minimal 99%",
+            "b. Minyak goreng kelapa sawit",
+            "c. Air teh manis hangat",
+            "d. Minyak wangi semprot berbahan dasar air",
+            "e. Sabun colek pencuci piring"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b3_17",
+          level: "HOTS",
+          type: "multiple",
+          question: "Mengapa sikap kerja 'Rajin (Shitsuke)' dianggap sebagai puncak keberhasilan budaya kerja industri di sekolah kejuruan? (Pilih 2 pernyataan yang tepat)",
+          options: [
+            "a. Membentuk kesadaran diri dan integritas siswa untuk selalu taat SOP tanpa perlu selalu ditegur atau diawasi guru",
+            "b. Menjadikan budaya tertib, rapi, dan selamat sebagai karakter alami yang siap diterapkan di dunia industri nyata",
+            "c. Menjadikan siswa takut menerima hukuman dari pihak sekolah",
+            "d. Membuat siswa merasa lebih unggul daripada siswa jurusan lain",
+            "e. Membatasi siswa agar tidak mencoba teknologi jaringan baru"
+          ],
+          correct: [0, 1]
+        },
+        {
+          id: "b3_18",
+          level: "Mudah",
+          type: "single",
+          question: "Simbol keselamatan kerja bergambar tanda kilat petir warna kuning pada panel box perangkat jaringan memiliki arti...",
+          options: [
+            "a. Bahaya tegangan listrik tinggi (High Voltage Hazard)",
+            "b. Tempat pengisian daya baterai handphone",
+            "c. Titik kumpul saat terjadi gempa bumi",
+            "d. Area dilarang merokok",
+            "e. Jalur evakuasi darurat"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b3_19",
+          level: "Sedang",
+          type: "single",
+          question: "Alat pengupas jaket pelindung luar kabel serat optik agar tidak melukai core kaca di dalamnya secara presisi disebut...",
+          options: [
+            "a. Miller Stripper / Fiber Optic Stripper",
+            "b. Gergaji triplek",
+            "c. Pisau dapur bergerigi",
+            "d. Cuter kertas ukuran besar",
+            "e. Korek api gas pembakar"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b3_20",
+          level: "HOTS",
+          type: "single",
+          question: "Audit laboratorium TJKT menunjukkan 30% kabel patch cord UTP mengalami kerusakan pin konektor RJ45 akibat ditarik paksa dari port switch tanpa menekan klip pengunci. Rekomendasi perbaikan preventif berbasis SOP yang tepat adalah...",
+          options: [
+            "a. Memotong semua konektor RJ45 dan menyambungnya langsung dengan lakban hitam",
+            "b. Memasang pelindung konektor (modular boot/rubber boot) serta sosialisasi SOP pelepasan kabel dengan menekan tuas klip",
+            "c. Mengganti semua switch dengan koneksi nirkabel Bluetooth",
+            "d. Melarang siswa menyentuh kabel selama pembelajaran 1 semester",
+            "e. Memberi lem perekat permanen pada konektor switch"
+          ],
+          correct: [1]
+        }
+      ],
+      bab4: [
+        {
+          id: "b4_1",
+          level: "Mudah",
+          type: "single",
+          question: "Istilah untuk saluran layanan pengaduan masalah teknis komputer dan jaringan dalam suatu institusi atau ISP adalah...",
+          options: [
+            "a. Helpdesk / IT Service Desk",
+            "b. Kasir Minimarket",
+            "c. Ruang Sidang Hukum",
+            "d. Loket Karcis Parkir",
+            "e. Pintu Masuk Gudang"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b4_2",
+          level: "Mudah",
+          type: "single",
+          question: "Ketika pelanggan menghubungi helpdesk dengan nada marah karena internetnya lambat, kalimat respons pembuka yang mencerminkan empati profesional adalah...",
+          options: [
+            "a. 'Bapak jangan marah-marah dulu, semua orang juga sedang lambat!'",
+            "b. 'Selamat pagi Bapak/Ibu, mohon maaf atas ketidaknyamanan yang dialami. Izinkan saya membantu mengecek kendala koneksinya.'",
+            "c. 'Pasti kabel di rumah Bapak digigit tikus, jangan salahkan kami!'",
+            "d. 'Silakan tunggu seminggu lagi baru kami periksa ya.'",
+            "e. 'Bisa bicara dengan nada pelan tidak? Saya pusing mendengarnya.'"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b4_3",
+          level: "Sedang",
+          type: "single",
+          question: "Dokumen elektronik yang dibuat oleh sistem helpdesk untuk mencatat identitas pelapor, rincian keluhan, status penanganan, hingga riwayat solusi teknis disebut...",
+          options: [
+            "a. Formulir Kuitansi Tagihan",
+            "b. Tiket Gangguan (Support Ticket)",
+            "c. Ijazah Kelulusan",
+            "d. Kartu Tanda Anggota",
+            "e. Surat Izin Mengemudi"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b4_4",
+          level: "Sedang",
+          type: "single",
+          question: "Langkah penanganan gangguan awal (troubleshooting level 1) yang paling standar saat pelanggan melaporkan koneksi Wi-Fi tidak dapat browsing adalah...",
+          options: [
+            "a. Langsung menyuruh pelanggan membuang modem ke tempat sampah",
+            "b. Mengarahkan pelanggan memeriksa lampu indikator daya (Power, PON, LAN) dan me-restart router secara aman",
+            "c. Menyarankan pelanggan membeli laptop baru",
+            "d. Mematikan listrik satu kelurahan",
+            "e. Mengubah tarif paket langganan secara paksa"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b4_5",
+          level: "HOTS",
+          type: "multiple",
+          question: "Seorang teknisi helpdesk menerima tiket: 'Semua komputer di ruang laboratorium akuntansi tidak dapat mengakses internet, namun komputer di ruang guru normal'. Kemungkinan titik sumber masalah yang logis adalah: (Pilih 2 kemungkinan)",
+          options: [
+            "a. Switch distribusi di laboratorium akuntansi mengalami hang atau kabel uplink ke router pusat terlepas",
+            "b. Terjadi kegagalan penugasan DHCP pool pada VLAN khusus laboratorium akuntansi",
+            "c. Kabel kabel fiber optik bawah laut antar benua putus total",
+            "d. Satelit cuaca sedang tertutup awan mendung",
+            "e. Papan tulis di laboratorium akuntansi belum dibersihkan"
+          ],
+          correct: [0, 1]
+        },
+        {
+          id: "b4_6",
+          level: "Mudah",
+          type: "single",
+          question: "Metrik survei kepuasan pelanggan yang umumnya diukur dengan skala bintang 1 hingga 5 setelah masalah teknis terselesaikan disebut...",
+          options: [
+            "a. CSAT (Customer Satisfaction Score)",
+            "b. CPU Clock Rate",
+            "c. RAM Frequency",
+            "d. HDD RPM",
+            "e. Bus Speed"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b4_7",
+          level: "Sedang",
+          type: "single",
+          question: "Kapan sebuah tiket komplain di helpdesk diperbolehkan untuk diubah statusnya menjadi 'Closed' (Terselesaikan)?",
+          options: [
+            "a. Saat jam kerja staf helpdesk telah habis",
+            "b. Saat solusi sudah diterapkan dan telah dikonfirmasi langsung oleh pelanggan bahwa koneksi telah kembali normal",
+            "c. Begitu pelanggan menutup sambungan telepon",
+            "d. Ketika teknisi tidak tahu cara menyelesaikannya",
+            "e. Saat pelanggan menolak membayar tagihan"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b4_8",
+          level: "Sedang",
+          type: "single",
+          question: "Rata-rata durasi waktu yang dihabiskan oleh tim teknisi sejak tiket diterima hingga gangguan berhasil dituntaskan dikenal dengan indikator performa...",
+          options: [
+            "a. MTTR (Mean Time to Resolution)",
+            "b. BIOS (Basic Input Output System)",
+            "c. CMOS (Complementary Metal Oxide)",
+            "d. POST (Power On Self Test)",
+            "e. CLI (Command Line Interface)"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b4_9",
+          level: "HOTS",
+          type: "single",
+          question: "Pelanggan VIP perusahaan komplain kecepatan unduh hanya 10 Mbps padahal berlangganan paket dedicated 100 Mbps. Petugas helpdesk L1 memandu tes speedtest lokal ke server ISP dan hasilnya normal 98 Mbps. Namun saat akses server di luar negeri lambat. Analisis penjelasan teknis yang jujur dan edukatif kepada pelanggan adalah...",
+          options: [
+            "a. Menyalahkan komputer pelanggan yang terlalu lambat",
+            "b. Menjelaskan secara ramah bahwa link lokal prima, dan tim NOC sedang memitigasi adanya degradasi traffic pada jalur gateway kabel laut internasional transit",
+            "c. Berbohong bahwa kecepatan 10 Mbps sudah sangat cukup bagi perusahaan mereka",
+            "d. Mengabaikan chat pelanggan dan memblokir nomor teleponnya",
+            "e. Menghapus akun langganan pelanggan seketika itu juga"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b4_10",
+          level: "Mudah",
+          type: "single",
+          question: "Sikap aktif mendengarkan keluhan pengguna tanpa memotong pembicaraan di tengah kalimat disebut sebagai teknik...",
+          options: [
+            "a. Active Listening (Mendengar Aktif)",
+            "b. Passive Aggressive",
+            "c. Silent Treatment",
+            "d. Selective Ignorance",
+            "e. Talking Over"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b4_11",
+          level: "Sedang",
+          type: "multiple",
+          question: "Data penting apa sajakah yang wajib digali oleh petugas Helpdesk L1 saat pertama kali mencatat tiket laporan gangguan koneksi internet? (Pilih 2 data utama)",
+          options: [
+            "a. Nomor ID Pelanggan / Nomor Layanan dan nama penanggung jawab",
+            "b. Detail gejala gangguan (lampu indikator modem, waktu mulai gangguan, pesan error)",
+            "c. Merek pakaian yang dikenakan pelanggan saat menelpon",
+            "d. Makanan favorit anggota keluarga pelanggan",
+            "e. Nilai rapor semester lalu putra pelanggan"
+          ],
+          correct: [0, 1]
+        },
+        {
+          id: "b4_12",
+          level: "Mudah",
+          type: "single",
+          question: "Sistem perangkat lunak yang biasa digunakan perusahaan untuk mengelola tiket bantuan pelanggan secara otomatis dan terorganisir disebut sistem...",
+          options: [
+            "a. Ticketing System (contoh: Zendesk, OTRS, GLPI)",
+            "b. Adobe Photoshop",
+            "c. Corel Draw",
+            "d. Winamp Media Player",
+            "e. Windows Media Player"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b4_13",
+          level: "Sedang",
+          type: "single",
+          question: "Jika staf Helpdesk Tier 1 tidak dapat menyelesaikan masalah konfigurasi routing BGP yang rumit dalam waktu 15 menit, prosedur yang harus dilakukan sesuai SOP adalah...",
+          options: [
+            "a. Melakukan eskalasi tiket ke Tier 2 / Network Engineer yang lebih berkompeten",
+            "b. Mengabaikan tiket tersebut dan pura-pura lupa",
+            "c. Memarahi pelanggan karena pertanyaannya terlalu sulit",
+            "d. Menutup paksa aplikasi helpdesk",
+            "e. Menghapus data pelanggan dari database"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b4_14",
+          level: "HOTS",
+          type: "single",
+          question: "Studi kasus: Survei kepuasan pelanggan menunjukkan nilai CSAT helpdesk turun dari 92% menjadi 68% dalam dua bulan terakhir. Keluhan terbanyak adalah 'Pelanggan tidak pernah mendapat kabar perkembangan saat tiket mereka dieskalasi ke tim teknisi lapangan'. Rekomendasi perbaikan SOP yang paling mendesak adalah...",
+          options: [
+            "a. Menghilangkan fitur survei kepuasan agar tidak terlihat penurunan nilainya",
+            "b. Menerapkan fitur auto-update SMS/WhatsApp notifikasi progres penanganan gangguan pada setiap tahapan kerja teknisi",
+            "c. Melarang pelanggan menghubungi helpdesk lebih dari sekali",
+            "d. Mengganti semua saluran pengaduan telepon menjadi surat pos tertulis",
+            "e. Meminta pelanggan memperbaiki kabelnya secara mandiri"
+          ],
+          correct: [1]
+        },
+        {
+          id: "b4_15",
+          level: "Mudah",
+          type: "single",
+          question: "Saat bertugas di meja layanan (Front Office IT), pakaian dan penampilan yang harus ditunjukkan sesuai etika kerja kejuruan adalah...",
+          options: [
+            "a. Seragam rapi, bersih, mengenakan kartu tanda pengenal (ID Card), serta berpenampilan sopan",
+            "b. Kaos oblong robek dan memakai topi miring",
+            "c. Sandal jepit dan celana pendek",
+            "d. Mengenakan kacamata hitam di dalam ruangan remang",
+            "e. Pakaian olahraga basah penuh keringat"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b4_16",
+          level: "Sedang",
+          type: "single",
+          question: "Istilah dalam penanganan helpdesk ketika masalah pelanggan berhasil diselesaikan secara tuntas pada kontak pertama tanpa perlu eskalasi disebut...",
+          options: [
+            "a. First Contact Resolution (FCR)",
+            "b. Zero Tolerance Policy",
+            "c. Late Delivery Status",
+            "d. Post Mortem Review",
+            "e. Random Error Detection"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b4_17",
+          level: "HOTS",
+          type: "multiple",
+          question: "Manakah tindakan di bawah ini yang melanggar etika kerahasiaan data pribadi pelanggan (privacy policy) saat menjadi staf teknis TJKT? (Pilih 2 pelanggaran)",
+          options: [
+            "a. Menyebarkan nomor telepon, alamat rumah, atau data browsing pelanggan ke grup obrolan pribadi",
+            "b. Mengintip file pribadi di laptop pengguna saat sedang meminjam perangkat untuk perbaikan driver LAN",
+            "c. Menjaga kerahasiaan password router pelanggan dan menyimpannya di pengelola password terenkripsi",
+            "d. Meminta izin tertulis sebelum melakukan remote desktop ke komputer pengguna",
+            "e. Mengunci layar komputer helpdesk saat sedang meninggalkan meja kerja"
+          ],
+          correct: [0, 1]
+        },
+        {
+          id: "b4_18",
+          level: "Mudah",
+          type: "single",
+          question: "Metode komunikasi tertulis dengan pelanggan melalui email layanan helpdesk harus menggunakan bahasa yang...",
+          options: [
+            "a. Jelas, santun, tidak berbelit-belit, dan menggunakan ejaan resmi yang baik",
+            "b. Menggunakan bahasa gaul yang disingkat-singkat tidak baku",
+            "c. Huruf kapital semua agar terkesan membentak",
+            "d. Penuh dengan sindiran tajam kepada pelanggan",
+            "e. Menggunakan simbol-simbol aneh yang membingungkan"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b4_19",
+          level: "Sedang",
+          type: "single",
+          question: "Peran utama simulasi 'Role-Playing' penanganan komplain pelanggan dalam pembelajaran dasar kejuruan TJKT adalah...",
+          options: [
+            "a. Melatih kesiapan mental, empati, dan keterampilan komunikasi nyata siswa sebelum diterjunkan ke PKL (Praktek Kerja Lapangan)",
+            "b. Menghabiskan waktu jam pelajaran kosong",
+            "c. Mencari siswa yang paling pandai berakting drama teater",
+            "d. Menghindari materi hitungan konfigurasi subnetting",
+            "e. Menguji ketahanan suara siswa saat berteriak"
+          ],
+          correct: [0]
+        },
+        {
+          id: "b4_20",
+          level: "HOTS",
+          type: "single",
+          question: "Analisis studi kasus: Sebuah sekolah SMK mengalami gangguan internet saat pelaksanaan asesmen nasional. Pihak sekolah panik dan menuntut ISP segera datang. Sebagai koordinator helpdesk ISP yang memegang teguh mutu layanan, tindakan prioritas tertinggi yang paling solutif adalah...",
+          options: [
+            "a. Menolak panggilan karena sedang jam istirahat makan siang",
+            "b. Menetapkan tiket dengan status 'Urgent P1', mengaktifkan link backup redundan/failover 4G secara remote seketika, sambil mengirim teknisi cepat ke lokasi sekolah",
+            "c. Meminta pihak sekolah membatalkan asesmen nasional dan ganti jadwal tahun depan",
+            "d. Menyalahkan panitia ujian yang tidak membeli modem cadangan sendiri",
+            "e. Memutus sambungan telepon agar suasana kantor kembali hening"
+          ],
+          correct: [1]
+        }
+      ]
+    };
+
+    // GENERATE 35 COMPREHENSIVE FINAL EXAM QUESTIONS (Mencakup Bab 1 sampai 4)
+    QUESTION_BANK.finalExam = [
+      // Dari Bab 1 (Profesi & Kualifikasi)
+      { id: "fe_1", level: "Sedang", type: "single", question: "Profesi yang memiliki tanggung jawab memelihara kelancaran traffic data pada router inti, routing BGP/OSPF, dan switching VLAN adalah...", options: ["a. Network Engineer", "b. Frontend Coder", "c. Copywriter", "d. Soundman", "e. Illustrator"], correct: [0] },
+      { id: "fe_2", level: "Mudah", type: "single", question: "Sertifikasi internasional MikroTik tingkat awal yang menguji kecakapan konfigurasi dasar RouterOS adalah...", options: ["a. CCNA", "b. MTCNA", "c. CEH", "d. CISSP", "e. AWS-CP"], correct: [1] },
+      { id: "fe_3", level: "Sedang", type: "single", question: "Tiga pilar utama keamanan informasi siber yang dikenal dengan CIA Triad adalah...", options: ["a. Cost, Income, Audit", "b. Confidentiality, Integrity, Availability", "c. Control, Internet, Application", "d. Core, Interface, Adaptation", "e. Current, Input, Acceleration"], correct: [1] },
+      { id: "fe_4", level: "HOTS", type: "multiple", question: "Kombinasi soft skill dan hard skill yang wajib dimiliki oleh seorang Network Support Engineer pemula adalah: (Pilih 2)", options: ["a. Pemahaman protokol TCP/IP dan troubleshooting layer fisik", "b. Komunikasi empatik dan kesabaran melayani pengguna", "c. Keahlian merawat hewan peliharaan", "d. Kemampuan membuat animasi 3D kartun", "e. Keahlian memainkan alat musik tiup"], correct: [0, 1] },
+      { id: "fe_5", level: "Mudah", type: "single", question: "Pusat pengendali dan pemantauan lalu lintas data jaringan selama 24/7 di perusahaan penyedia internet disebut...", options: ["a. NOC (Network Operation Center)", "b. Gudang Logistik", "c. Bagian Personalia", "d. Laboratorium Kimia", "e. Ruang Arsip"], correct: [0] },
+      { id: "fe_6", level: "Sedang", type: "single", question: "Sertifikasi jaringan internasional yang diterbitkan oleh vendor Cisco Systems untuk tingkat associate adalah...", options: ["a. MTCNA", "b. CCNA", "c. CompTIA A+", "d. LPIC-1", "e. HCIA"], correct: [1] },
+      { id: "fe_7", level: "HOTS", type: "single", question: "Sebuah perusahaan rintisan logistik ingin memindahkan server lokal mereka ke sistem komputasi awan yang elastis. Profesi spesialis yang paling kompeten merancang arsitektur tersebut adalah...", options: ["a. Teknisi Las", "b. Cloud Network Architect", "c. Operator Fotokopi", "d. Desainer Brosur", "e. Kasir Toko"], correct: [1] },
+      
+      // Dari Bab 2 (Proses Bisnis & Alur ISP)
+      { id: "fe_8", level: "Mudah", type: "single", question: "Langkah survei lokasi untuk menentukan jarak tarikan kabel dan posisi ODP sebelum aktivasi internet pelanggan disebut...", options: ["a. Site Survey", "b. Splicing Core", "c. Formatting OS", "d. Defrag Disk", "e. Benchmarking"], correct: [0] },
+      { id: "fe_9", level: "Sedang", type: "single", question: "Dokumen kontrak antara ISP dan pelanggan yang menjamin persentase ketersediaan layanan jaringan minimal (misal 99.5%) adalah...", options: ["a. SLA (Service Level Agreement)", "b. KTP", "c. NPWP", "d. Nota Kontan", "e. BPKB"], correct: [0] },
+      { id: "fe_10", level: "Sedang", type: "single", question: "Perangkat yang berada di rumah pelanggan untuk mengubah sinyal optik menjadi sinyal ethernet LAN dan Wi-Fi adalah...", options: ["a. OLT", "b. ONT / ONU", "c. Splicer", "d. Stripper", "e. Patch panel"], correct: [1] },
+      { id: "fe_11", level: "HOTS", type: "multiple", question: "Faktor fisik di lapangan yang sering menyebabkan redaman fiber optik menjadi loss (melebihi batas toleransi -25 dBm) adalah: (Pilih 2)", options: ["a. Tekukan kabel drop core melebihi batas radius lentur (bending)", "b. Kualitas sambungan splicing yang kotor atau retak", "c. Volume suara TV pelanggan yang terlalu keras", "d. Merek cat tembok rumah pelanggan", "e. Warna casing laptop yang digunakan"], correct: [0, 1] },
+      { id: "fe_12", level: "Mudah", type: "single", question: "Alat pengukur intensitas daya optik dalam satuan dBm pada ujung kabel pelanggan adalah...", options: ["a. OPM (Optical Power Meter)", "b. Barometer", "c. Speedometer", "d. Termometer", "e. Dinamometer"], correct: [0] },
+      { id: "fe_13", level: "Sedang", type: "single", question: "Alat pemantau grafis berbasis kabel optik yang mampu menghitung jarak pasti titik putus kabel secara refleksi cahaya adalah...", options: ["a. OTDR (Optical Time Domain Reflectometer)", "b. Obeng plus", "c. Tang kombinasi", "d. Tespen listrik", "e. Martil besi"], correct: [0] },
+      { id: "fe_14", level: "HOTS", type: "single", question: "Jika sebuah ISP mengalami downtime total selama 20 jam dalam sebulan (720 jam), persentase uptime riil yang dicapai adalah sekitar...", options: ["a. 97.22%", "b. 99.99%", "c. 80.00%", "d. 50.00%", "e. 100%"], correct: [0] },
+
+      // Dari Bab 3 (Budaya Mutu, 5R & K3LH)
+      { id: "fe_15", level: "Mudah", type: "single", question: "Budaya kerja 5R yang berfokus memilah barang yang tidak terpakai dan menyingkirkannya dari area kerja adalah...", options: ["a. Ringkas (Seiri)", "b. Rapi", "c. Resik", "d. Rawat", "e. Rajin"], correct: [0] },
+      { id: "fe_16", level: "Mudah", type: "single", question: "Menata kabel jaringan dalam rack cabinet dengan kabel spiral dan pelabelan port merupakan penerapan prinsip...", options: ["a. Rapi (Seiton)", "b. Ragu", "c. Rusak", "d. Reaktif", "e. Rombeng"], correct: [0] },
+      { id: "fe_17", level: "Sedang", type: "single", question: "Bahaya utama serpihan potongan kaca serat optik di laboratorium kerja adalah...", options: ["a. Mengeluarkan bau menyengat", "b. Serpihan mikro dapat menusuk kulit dan masuk ke peredaran darah", "c. Menghasilkan radiasi magnetik", "d. Membuat ruangan menjadi panas", "e. Mengganggu sinyal radio"], correct: [1] },
+      { id: "fe_18", level: "Sedang", type: "single", question: "Alat keselamatan kerja yang dipasang di pergelangan tangan untuk melindungi sirkuit elektronik motherboard dari lonjakan listrik statis tubuh adalah...", options: ["a. Gelang anti-statis (Anti-static wrist strap)", "b. Karet gelang biasa", "c. Jam tangan emas", "d. Manset kain", "e. Cincin tembaga"], correct: [0] },
+      { id: "fe_19", level: "HOTS", type: "multiple", question: "Standar operasional penanganan kebakaran pada ruang server telekomunikasi mencakup: (Pilih 2)", options: ["a. Menggunakan APAR berbahan Gas CO2 atau Clean Agent agar tidak merusak sirkuit", "b. Memutus sakelar utama aliran listrik darurat sebelum tindakan pemadaman", "c. Menyiram air ember langsung ke rack server aktif", "d. Mengunci pintu darurat dari luar", "e. Membuka semua jendela agar angin kencang masuk"], correct: [0, 1] },
+      { id: "fe_20", level: "Sedang", type: "single", question: "Mengapa teknisi dilarang mengarahkan mata langsung ke ujung konektor transmisi fiber optik aktif?", options: ["a. Karena sinar laser infra-merah tidak kasat mata dan berpotensi merusak retina mata secara permanen", "b. Karena konektornya berlumut", "c. Karena kabel akan putus jika dilihat", "d. Karena memancarkan suara keras", "e. Karena kuota internet akan berkurang"], correct: [0] },
+      { id: "fe_21", level: "HOTS", type: "single", question: "Pemberian label identitas pada kedua ujung kabel UTP patch cord bertujuan untuk...", options: ["a. Menambah bobot kabel", "b. Mempercepat pelacakan port saat troubleshooting tanpa harus meraba seluruh susunan kabel", "c. Menghias ruangan server agar penuh warna", "d. Menaikkan kecepatan bandwidth transfer secara drastis", "e. Mengurangi panas kabel"], correct: [1] },
+
+      // Dari Bab 4 (Pelayanan Pelanggan & Helpdesk)
+      { id: "fe_22", level: "Mudah", type: "single", question: "Pusat bantuan pertama yang menerima pengaduan masalah teknis dari pelanggan dinamakan...", options: ["a. IT Helpdesk / Service Desk", "b. Satpam Sekolah", "c. Kantin", "d. Bengkel Motor", "e. Gudang Barang"], correct: [0] },
+      { id: "fe_23", level: "Mudah", type: "single", question: "Formulir digital pelacakan status penanganan gangguan yang dibuat oleh sistem layanan pelanggan disebut...", options: ["a. Tiket Gangguan (Support Ticket)", "b. Surat Peringatan", "c. Kuitansi Belanja", "d. Resep Obat", "e. Ijazah"], correct: [0] },
+      { id: "fe_24", level: "Sedang", type: "single", question: "Jika kendala pelanggan tidak dapat diselesaikan oleh tim Helpdesk Tier 1 dalam batas waktu SOP, prosedur yang wajib dilakukan adalah...", options: ["a. Melakukan eskalasi tiket ke Tier 2 (Technical Support / NOC)", "b. Menutup tiket secara sepihak", "c. Mematikan sambungan telepon", "d. Menyuruh pelanggan memperbaiki sendiri", "e. Menghapus akun pelanggan"], correct: [0] },
+      { id: "fe_25", level: "HOTS", type: "multiple", question: "Teknik komunikasi empati yang wajib diterapkan staf helpdesk saat menghadapi komplain pelanggan yang emosional meliputi: (Pilih 2)", options: ["a. Mendengarkan secara aktif tanpa memotong kalimat keluhan pelanggan", "b. Mengakui kendala dan menyampaikan permohonan maaf atas ketidaknyamanan dengan nada tenang", "c. Membalas komplain dengan suara keras dan membentak", "d. Menertawakan ketidaktahuan istilah teknis pelanggan", "e. Menyalahkan pelanggan atas rusaknya jaringan"], correct: [0, 1] },
+      { id: "fe_26", level: "Sedang", type: "single", question: "Metrik pengukur kepuasan pelanggan secara kuantitatif melalui formulir penilaian bintang layanan purna jual disebut...", options: ["a. CSAT (Customer Satisfaction Score)", "b. PING", "c. TRACERT", "d. WHOIS", "e. NETSTAT"], correct: [0] },
+      { id: "fe_27", level: "HOTS", type: "single", question: "Rata-rata waktu yang dibutuhkan tim teknisi mulai dari penerimaan tiket hingga koneksi internet pelanggan pulih kembali disebut...", options: ["a. MTTR (Mean Time to Resolution)", "b. Latensi", "c. Throughput", "d. Redudansi", "e. Overhead"], correct: [0] },
+      { id: "fe_28", level: "Sedang", type: "single", question: "Tindakan staf teknis yang membagikan nomor kontak pribadi pelanggan ke grup publik tanpa izin merupakan pelanggaran serius terhadap...", options: ["a. Privasi dan kerahasiaan data pengguna (Data Privacy)", "b. Kecepatan transfer data", "c. Protokol routing jaringan", "d. Standar kabel UTP", "e. Frekuensi gelombang Wi-Fi"], correct: [0] },
+
+      // Soal Integrasi HOTS Lintas Bab (TP 1 - TP 8)
+      { id: "fe_29", level: "HOTS", type: "single", question: "Sebuah bank daerah mengalami insiden keamanan: server transaksi diserang DDoS dan sistem helpdesk dibanjiri tiket nasabah. Kerjasama tim yang paling terstruktur untuk memulihkan keadaan adalah...", options: ["a. Cyber Security memitigasi serangan di firewall, NOC memantau kestabilan bandwidth, dan Helpdesk memberikan panduan berkala kepada nasabah", "b. Semua staf kantor libur menunggu serangan reda sendiri", "c. Teknisi lapangan memotong semua kabel listrik kantor", "d. Menghapus seluruh database rekening nasabah", "e. Mengganti semua komputer teller dengan mesin tik"], correct: [0] },
+      { id: "fe_30", level: "HOTS", type: "single", question: "Ketika teknisi ISP hendak menyambung kabel serat optik yang terputus di tiang publik akibat tertabrak truk, prioritas utama keselamatan kerja K3LH adalah...", options: ["a. Memasang rambu pengaman lalu lintas, mengenakan helm pengaman, rompi reflektif, dan body harness sebelum menaiki tangga", "b. Langsung memanjat tangga bambu tanpa pengaman agar pekerjaan cepat selesai", "c. Menyambung kabel sambil merokok", "d. Melempar sisa potongan core ke jalan raya", "e. Menatap langsung laser kabel untuk memastikan cahaya"], correct: [0] },
+      { id: "fe_31", level: "Sedang", type: "single", question: "Alat pengupas lapisan akrilik pelindung serat optik (cladding) dengan ukuran presisi 125/250 mikron dinamakan...", options: ["a. Miller Stripper", "b. Tang buaya", "c. Martil", "d. Kikir besi", "e. Gunting seng"], correct: [0] },
+      { id: "fe_32", level: "Sedang", type: "single", question: "Karakter kerja 'Rajin (Shitsuke)' di lingkungan bengkel TJKT tercermin saat siswa...", options: ["a. Secara sadar merapikan kembali alat praktikum ke tempat semula sesuai SOP tanpa perlu diperintah guru", "b. Menunggu bel pulang sambil bermain game di smartphone", "c. Membiarkan serpihan kabel berserakan di bawah meja", "d. Menyembunyikan alat praktik yang rusak di saku", "e. Meminjam alat milik teman tanpa izin"], correct: [0] },
+      { id: "fe_33", level: "HOTS", type: "multiple", question: "Komponen perangkat keras yang terpasang di sentral ISP (Central Office) untuk mengelola seluruh transmisi pasif GPON ke ribuan pelanggan adalah: (Pilih 2)", options: ["a. OLT (Optical Line Terminal)", "b. ODF (Optical Distribution Frame)", "c. Kompor listrik portabel", "d. Blender dapur", "e. Speaker aktif bluetooth mini"], correct: [0, 1] },
+      { id: "fe_34", level: "Sedang", type: "single", question: "Pembersihan konektor ferrule serat optik sebelum dihubungkan ke perangkat sangat penting menggunakan alkohol berkadar...", options: ["a. Isopropil Alkohol 99%", "b. Air sirup manis", "c. Minyak tanah", "d. Bensin premium", "e. Cuka dapur"], correct: [0] },
+      { id: "fe_35", level: "HOTS", type: "single", question: "Kesimpulan pembelajaran semester ganjil TJKT: Membangun reputasi profesional (personal branding) di dunia teknologi jaringan tidak hanya menuntut kecerdasan konfigurasi teknis (hard skills), melainkan juga...", options: ["a. Integritas moral, kedisiplinan budaya mutu 5R, K3LH, dan etika pelayanan pelanggan yang unggul", "b. Kemampuan mencari jalan pintas untuk berbuat curang", "c. Keahlian meretas jaringan Wi-Fi tetangga tanpa izin", "d. Kebiasaan datang terlambat saat jam kerja", "e. Sikap acuh tak acuh terhadap keluhan orang lain"], correct: [0] }
+    ];
+
+    /* ========================================================
+       3. APPLICATION STATE & PERSISTENCE ENGINE
+       ======================================================== */
+    const STORAGE_KEY_STUDENTS = "tjkt_students_db_v1";
+    const STORAGE_KEY_SESSION = "tjkt_current_student_v1";
+    const STORAGE_KEY_GAS_URL = "tjkt_gas_webapp_url_v1";
+    const DEFAULT_ADMIN_PIN = "123456";
+    const KKM_SCORE = 75;
+
+    let currentStudent = null;
+    let activeQuizData = null; // Holds questions, currentIndex, answers map, currentBabId
+    let materialTimerInterval = null;
+    let materialTimeRemaining = 10;
+
+    // Initialize application on load
+    window.addEventListener("DOMContentLoaded", () => {
+      initAntiCheatProtections();
+      checkActiveSession();
+      loadGasUrlSetting();
+    });
+
+    /* ========================================================
+       4. SECURITY & ANTI-CHEAT / ANTI-COPY MECHANISMS
+       ======================================================== */
+    function initAntiCheatProtections() {
+      // 1. Matikan klik kanan context menu pada area soal
+      document.addEventListener("contextmenu", (e) => {
+        if (isQuizActive()) {
+          e.preventDefault();
+          showToast("Proteksi Aktif: Klik kanan dinonaktifkan untuk menjaga integritas ujian.", "warning");
+        }
+      });
+
+      // 2. Blokir shortcut keyboard umum penyalin teks & pembuka AI / Developer tools
+      document.addEventListener("keydown", (e) => {
+        if (!isQuizActive()) return;
+
+        // Cegah Ctrl+C, Ctrl+U, Ctrl+Shift+I, Ctrl+Shift+C, F12
+        if (
+          (e.ctrlKey && (e.key === "c" || e.key === "C" || e.key === "u" || e.key === "U")) ||
+          (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i" || e.key === "C" || e.key === "c" || e.key === "J" || e.key === "j")) ||
+          e.key === "F12"
+        ) {
+          e.preventDefault();
+          showToast("Tindakan dicegah! Menyalin soal dan membuka alat bantu dilarang saat asesmen.", "error");
+        }
+      });
+    }
+
+    function isQuizActive() {
+      return !document.getElementById("viewQuiz").classList.contains("hidden");
+    }
+
+    /* ========================================================
+       5. STUDENT AUTH & SESSION MANAGEMENT
+       ======================================================== */
+    function checkActiveSession() {
+      const savedSession = localStorage.getItem(STORAGE_KEY_SESSION);
+      if (savedSession) {
+        try {
+          currentStudent = JSON.parse(savedSession);
+          // Sinkron data terbaru dari database lokal
+          const allStudents = getAllStudents();
+          const match = allStudents.find(s => s.name === currentStudent.name && s.studentClass === currentStudent.studentClass);
+          if (match) currentStudent = match;
+          showDashboardView();
+        } catch (e) {
+          localStorage.removeItem(STORAGE_KEY_SESSION);
+          showLoginView();
+        }
+      } else {
+        showLoginView();
+      }
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById("loginName").value.trim();
+      const classInput = document.getElementById("loginClass").value;
+
+      if (!nameInput || !classInput) {
+        showToast("Harap isi nama lengkap dan pilih kelas Anda!", "error");
+        return;
+      }
+
+      let allStudents = getAllStudents();
+      let student = allStudents.find(s => s.name.toLowerCase() === nameInput.toLowerCase() && s.studentClass === classInput);
+
+      if (!student) {
+        // Buat record siswa baru
+        student = {
+          id: "std_" + Date.now(),
+          name: nameInput,
+          studentClass: classInput,
+          registeredAt: new Date().toISOString(),
+          // Status progres per bab: { openedMaterial: bool, score: null/number, passed: bool, attempts: 0 }
+          bab1: { openedMaterial: false, score: null, passed: false, attempts: 0 },
+          bab2: { openedMaterial: false, score: null, passed: false, attempts: 0 },
+          bab3: { openedMaterial: false, score: null, passed: false, attempts: 0 },
+          bab4: { openedMaterial: false, score: null, passed: false, attempts: 0 },
+          finalExam: { openedMaterial: true, score: null, passed: false, attempts: 0 }, // Unlocks setelah bab 4 tuntas
+          finalStatus: "Belum Tuntas"
+        };
+        allStudents.push(student);
+        saveAllStudents(allStudents);
+      }
+
+      currentStudent = student;
+      localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(currentStudent));
+      showToast(`Selamat datang, ${student.name}! Semangat belajar TJKT.`, "success");
+      showDashboardView();
+    }
+
+    function logoutStudent() {
+      localStorage.removeItem(STORAGE_KEY_SESSION);
+      currentStudent = null;
+      showToast("Anda telah keluar dari sesi belajar.", "info");
+      showLoginView();
+    }
+
+    /* Database Helper Functions */
+    function getAllStudents() {
+      const data = localStorage.getItem(STORAGE_KEY_STUDENTS);
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveAllStudents(studentsList) {
+      localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(studentsList));
+    }
+
+    function updateStudentInDb(studentObj) {
+      const all = getAllStudents();
+      const idx = all.findIndex(s => s.name === studentObj.name && s.studentClass === studentObj.studentClass);
+      if (idx !== -1) {
+        all[idx] = studentObj;
+      } else {
+        all.push(studentObj);
+      }
+      saveAllStudents(all);
+      localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(studentObj));
+    }
+
+    /* ========================================================
+       6. NAVIGATION & VIEW CONTROLLERS
+       ======================================================== */
+    function hideAllViews() {
+      document.getElementById("viewLogin").classList.add("hidden");
+      document.getElementById("viewDashboard").classList.add("hidden");
+      document.getElementById("viewMaterial").classList.add("hidden");
+      document.getElementById("viewQuiz").classList.add("hidden");
+      document.getElementById("viewQuizResult").classList.add("hidden");
+      document.getElementById("viewAdminPortal").classList.add("hidden");
+    }
+
+    function showLoginView() {
+      hideAllViews();
+      document.getElementById("navUserBadge").classList.add("hidden");
+      document.getElementById("btnLogout").classList.add("hidden");
+      document.getElementById("viewLogin").classList.remove("hidden");
+    }
+
+    function showDashboardView() {
+      hideAllViews();
+      if (!currentStudent) return showLoginView();
+
+      // Update Nav
+      document.getElementById("navUserBadge").classList.remove("hidden");
+      document.getElementById("navUserBadge").classList.add("flex");
+      document.getElementById("navUserName").textContent = currentStudent.name.split(" ")[0];
+      document.getElementById("navUserClass").textContent = currentStudent.studentClass;
+      document.getElementById("btnLogout").classList.remove("hidden");
+
+      // Update Dashboard Hero
+      document.getElementById("dashStudentName").textContent = currentStudent.name;
+      document.getElementById("dashClassBadge").textContent = currentStudent.studentClass;
+
+      renderDashboardModules();
+      updateDashboardProgress();
+      document.getElementById("viewDashboard").classList.remove("hidden");
+    }
+
+    function backToDashboard() {
+      if (materialTimerInterval) clearInterval(materialTimerInterval);
+      showDashboardView();
+    }
+
+    /* ========================================================
+       7. DASHBOARD RENDERING & KKM PROGRESS LOGIC
+       ======================================================== */
+    function renderDashboardModules() {
+      const container = document.getElementById("modulesContainer");
+      container.innerHTML = "";
+
+      let allPreviousPassed = true;
+
+      MODULES.forEach((mod, index) => {
+        const studentMod = currentStudent[mod.id] || { openedMaterial: false, score: null, passed: false, attempts: 0 };
+        const isLocked = !allPreviousPassed; // Bab berikutnya terkunci sampai bab sebelumnya tuntas KKM
+        const isPassed = studentMod.passed;
+        const hasScore = studentMod.score !== null;
+        const attemptsLeft = 2 - studentMod.attempts;
+
+        // Cek kelanjutan untuk bab berikutnya
+        if (!isPassed) {
+          allPreviousPassed = false;
+        }
+
+        const card = document.createElement("div");
+        card.className = `rounded-2xl border p-5 transition-all duration-300 relative flex flex-col justify-between ${
+          isLocked
+            ? "bg-slate-900/40 border-slate-800 opacity-60"
+            : isPassed
+            ? "bg-slate-900/90 border-emerald-800/60 glow-emerald"
+            : "bg-slate-900/90 border-slate-800 hover:border-cyan-700/80"
+        }`;
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-lg bg-${mod.color}-500/20 text-${mod.color}-400 flex items-center justify-center font-bold text-xs">
+                  <i class="fa-solid ${mod.icon}"></i>
+                </span>
+                <span class="text-xs font-mono font-bold text-slate-400 uppercase">Bab ${mod.number}</span>
+              </div>
+              <div>
+                ${
+                  isLocked
+                    ? '<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-500 border border-slate-700"><i class="fa-solid fa-lock"></i> Terkunci</span>'
+                    : isPassed
+                    ? '<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold"><i class="fa-solid fa-circle-check"></i> TUNTAS KKM</span>'
+                    : hasScore
+                    ? '<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-950 text-rose-400 border border-rose-800 font-bold"><i class="fa-solid fa-circle-xmark"></i> BELUM KKM</span>'
+                    : '<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 font-bold">Siap Dipelajari</span>'
+                }
+              </div>
+            </div>
+
+            <h4 class="text-base font-bold text-white mb-1">${mod.title}</h4>
+            <div class="text-[11px] font-mono text-cyan-400 mb-2">${mod.tp}</div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">${mod.description}</p>
+          </div>
+
+          <div class="border-t border-slate-800/80 pt-4 mt-2">
+            <!-- Score & Prerequisite Status Indicators -->
+            <div class="flex items-center justify-between text-xs mb-3">
+              <div>
+                <span class="text-slate-500 text-[11px]">Nilai Evaluasi:</span>
+                <span class="font-mono font-bold ml-1 ${hasScore ? (isPassed ? 'text-emerald-400 text-sm' : 'text-rose-400 text-sm') : 'text-slate-400'}">
+                  ${hasScore ? studentMod.score : '-'}
+                </span>
+                <span class="text-[10px] text-slate-500 font-mono">/100 (KKM: 75)</span>
+              </div>
+              <div class="text-[11px]">
+                ${
+                  studentMod.openedMaterial
+                    ? '<span class="text-emerald-400 font-medium"><i class="fa-solid fa-book-open"></i> Materi Terbuka</span>'
+                    : '<span class="text-amber-400 font-medium"><i class="fa-solid fa-book"></i> Wajib Baca Materi</span>'
+                }
+              </div>
+            </div>
+
+            <!-- Action Buttons: Belajar Materi & Mulai Soal -->
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="openMaterialView('${mod.id}')" ${isLocked ? 'disabled' : ''} 
+                class="py-2 px-3 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center justify-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed">
+                <i class="fa-solid fa-book-bookmark text-cyan-400"></i> Buka Materi
+              </button>
+
+              <button onclick="checkAndStartQuiz('${mod.id}')" ${isLocked ? 'disabled' : ''} 
+                class="py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md ${
+                  isLocked || !studentMod.openedMaterial
+                    ? 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed'
+                    : isPassed
+                    ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/20'
+                    : studentMod.attempts >= 2
+                    ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-cyan-600/20'
+                }">
+                <i class="fa-solid fa-pen-to-square"></i>
+                ${
+                  isPassed
+                    ? 'Lihat Hasil'
+                    : hasScore && studentMod.attempts < 2
+                    ? 'Ujian Remidi (1x)'
+                    : studentMod.attempts >= 2
+                    ? 'Kesempatan Habis'
+                    : 'Mulai Kuis (20 Soal)'
+                }
+              </button>
+            </div>
+            ${
+              hasScore && !isPassed && studentMod.attempts < 2
+                ? `<div class="text-[10px] text-amber-400 mt-2 text-center bg-amber-950/40 py-1 rounded border border-amber-900/60">
+                    Nilai belum KKM. Buka kembali materi untuk membuka remidi 1x lagi.
+                  </div>`
+                : ''
+            }
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      renderFinalExamCard(allPreviousPassed);
+    }
+
+    function renderFinalExamCard(canUnlockFinalExam) {
+      const container = document.getElementById("finalExamCardContainer");
+      const finalExamState = currentStudent.finalExam || { openedMaterial: true, score: null, passed: false, attempts: 0 };
+      const isPassed = finalExamState.passed;
+      const hasScore = finalExamState.score !== null;
+
+      container.innerHTML = `
+        <div class="rounded-2xl border p-6 transition-all duration-300 relative ${
+          !canUnlockFinalExam
+            ? 'bg-slate-900/40 border-slate-800 opacity-60'
+            : isPassed
+            ? 'bg-gradient-to-r from-slate-900 via-emerald-950/30 to-slate-900 border-emerald-700 glow-emerald'
+            : 'bg-gradient-to-r from-slate-900 via-indigo-950/30 to-slate-900 border-indigo-700/80 glow-cyan'
+        }">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-900/80 text-indigo-300 font-mono font-bold border border-indigo-700">
+                  EVALUASI AKHIR SEMESTER GANJIL
+                </span>
+                ${
+                  !canUnlockFinalExam
+                    ? '<span class="text-xs text-slate-500"><i class="fa-solid fa-lock"></i> Tuntaskan Bab 1 - 4 terlebih dahulu</span>'
+                    : isPassed
+                    ? '<span class="text-xs text-emerald-400 font-bold"><i class="fa-solid fa-trophy"></i> LULUS SEMESTER GANJIL</span>'
+                    : '<span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-circle-play"></i> Siap Dikerjakan</span>'
+                }
+              </div>
+              <h3 class="text-xl font-bold text-white">Final Exam: Ujian Komprehensif Dasar-dasar TJKT (35 Soal)</h3>
+              <p class="text-xs text-slate-400 max-w-2xl">
+                Menguji seluruh penguasaan materi TP 1 hingga TP 8 (Profesi, Kualifikasi, Alur ISP & Layanan, K3LH, Budaya Mutu 5R, serta Helpdesk & Kepuasan Pelanggan).
+              </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+              <div class="text-right sm:mr-2">
+                <span class="text-[11px] text-slate-400 block">Nilai Final Exam:</span>
+                <span class="text-xl font-mono font-black ${hasScore ? (isPassed ? 'text-emerald-400' : 'text-rose-400') : 'text-slate-500'}">
+                  ${hasScore ? finalExamState.score : '-'}
+                </span>
+                <span class="text-[10px] text-slate-500 font-mono">/100</span>
+              </div>
+
+              <button onclick="checkAndStartQuiz('finalExam')" ${!canUnlockFinalExam ? 'disabled' : ''} 
+                class="px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-lg ${
+                  !canUnlockFinalExam
+                    ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                    : isPassed
+                    ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/30'
+                    : 'bg-gradient-to-r from-indigo-500 via-cyan-500 to-blue-600 hover:from-indigo-400 hover:to-blue-500 text-white shadow-cyan-500/30'
+                }">
+                <i class="fa-solid fa-flag-checkered"></i>
+                ${isPassed ? 'Lihat Hasil Akhir' : 'Mulai Final Exam'}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateDashboardProgress() {
+      const allModulesKeys = ["bab1", "bab2", "bab3", "bab4", "finalExam"];
+      let tuntasCount = 0;
+
+      allModulesKeys.forEach(k => {
+        if (currentStudent[k] && currentStudent[k].passed) {
+          tuntasCount++;
+        }
+      });
+
+      const percent = Math.round((tuntasCount / allModulesKeys.length) * 100);
+      document.getElementById("dashOverallPercent").textContent = `${percent}%`;
+      document.getElementById("dashProgressBar").style.width = `${percent}%`;
+      document.getElementById("dashTuntasCount").textContent = `${tuntasCount} / ${allModulesKeys.length} Tuntas`;
+
+      // Simpan status kelulusan akhir siswa
+      if (currentStudent.finalExam && currentStudent.finalExam.passed) {
+        currentStudent.finalStatus = "Tuntas / Kompeten";
+      } else {
+        currentStudent.finalStatus = "Dalam Pembelajaran";
+      }
+      updateStudentInDb(currentStudent);
+    }
+
+    /* ========================================================
+       8. GATED LEARNING MATERIAL VIEWER (COUNTDOWN & INTERACTION)
+       ======================================================== */
+    let currentViewingModId = null;
+
+    function openMaterialView(babId) {
+      const mod = MODULES.find(m => m.id === babId);
+      if (!mod) return;
+
+      currentViewingModId = babId;
+      hideAllViews();
+
+      document.getElementById("materialChapterTag").textContent = `Bab ${mod.number}`;
+      document.getElementById("materialTitle").textContent = mod.title;
+      document.getElementById("materialContentArea").innerHTML = mod.visualInfographic;
+
+      // Timer interaksi membaca materi wajib 10 detik agar anak benar-benar membaca visual
+      materialTimeRemaining = 10;
+      const btnFinish = document.getElementById("btnFinishMaterial");
+      const iconFinish = document.getElementById("btnFinishMaterialIcon");
+      const textFinish = document.getElementById("btnFinishMaterialText");
+      const timerDisplay = document.getElementById("materialStudyCountdown");
+
+      btnFinish.disabled = true;
+      btnFinish.className = "px-6 py-2.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed transition flex items-center gap-2";
+      iconFinish.className = "fa-solid fa-lock";
+      textFinish.textContent = `Membaca Visual (${materialTimeRemaining}s)`;
+      timerDisplay.textContent = `${materialTimeRemaining}s`;
+
+      if (materialTimerInterval) clearInterval(materialTimerInterval);
+
+      materialTimerInterval = setInterval(() => {
+        materialTimeRemaining--;
+        if (materialTimeRemaining > 0) {
+          textFinish.textContent = `Membaca Visual (${materialTimeRemaining}s)`;
+          timerDisplay.textContent = `${materialTimeRemaining}s`;
+        } else {
+          clearInterval(materialTimerInterval);
+          btnFinish.disabled = false;
+          btnFinish.className = "px-6 py-2.5 rounded-xl font-bold text-sm bg-cyan-600 hover:bg-cyan-500 text-white shadow-lg shadow-cyan-600/25 transition flex items-center gap-2 transform hover:-translate-y-0.5 cursor-pointer";
+          iconFinish.className = "fa-solid fa-circle-check text-emerald-300";
+          textFinish.textContent = "Selesai Mempelajari Materi (Buka Kuis)";
+          timerDisplay.innerHTML = '<span class="text-emerald-400 font-bold"><i class="fa-solid fa-check"></i> Siap Kuis</span>';
+        }
+      }, 1000);
+
+      document.getElementById("viewMaterial").classList.remove("hidden");
+    }
+
+    function confirmMaterialFinished() {
+      if (!currentViewingModId || !currentStudent) return;
+      if (!currentStudent[currentViewingModId]) {
+        currentStudent[currentViewingModId] = { openedMaterial: true, score: null, passed: false, attempts: 0 };
+      } else {
+        currentStudent[currentViewingModId].openedMaterial = true;
+      }
+      updateStudentInDb(currentStudent);
+      showToast("Selamat! Materi telah dipelajari. Kuis evaluasi bab ini sekarang terbuka.", "success");
+      backToDashboard();
+    }
+
+    /* ========================================================
+       9. QUIZ RUNNER ENGINE & KKM CHECK
+       ======================================================== */
+    function checkAndStartQuiz(babId) {
+      const studentMod = currentStudent[babId];
+
+      // Proteksi 1: Wajib buka & pelajari materi terlebih dahulu
+      if (babId !== "finalExam" && (!studentMod || !studentMod.openedMaterial)) {
+        showToast("Eits! Anda belum mempelajari materi. Silakan klik 'Buka Materi' terlebih dahulu.", "warning");
+        return;
+      }
+
+      // Proteksi 2: Batas kesempatan remidi (Maksimal 2 kali pengerjaan jika belum KKM)
+      if (studentMod && studentMod.attempts >= 2 && !studentMod.passed) {
+        showToast("Batas remidi (2x percobaan) telah digunakan. Silakan berkonsultasi dengan Bu Fitri.", "error");
+        return;
+      }
+
+      startQuizEngine(babId);
+    }
+
+    function startQuizEngine(babId) {
+      let questions = [];
+      let quizTitleText = "";
+
+      if (babId === "finalExam") {
+        questions = [...QUESTION_BANK.finalExam];
+        quizTitleText = "Final Exam - Ujian Komprehensif Semester Ganjil";
+      } else {
+        questions = [...QUESTION_BANK[babId]];
+        const mod = MODULES.find(m => m.id === babId);
+        quizTitleText = `Evaluasi Kompetensi Bab ${mod.number}: ${mod.title}`;
+      }
+
+      activeQuizData = {
+        babId: babId,
+        title: quizTitleText,
+        questions: questions,
+        currentIndex: 0,
+        answers: {} // Map: questionIndex -> Array of selected option indices
+      };
+
+      hideAllViews();
+      document.getElementById("quizTitle").textContent = activeQuizData.title;
+      document.getElementById("quizChapterBadge").textContent = babId === "finalExam" ? "FINAL EXAM" : `BAB ${babId.replace("bab", "")}`;
+      document.getElementById("quizTotalIndex").textContent = questions.length;
+
+      renderCurrentQuestion();
+      document.getElementById("viewQuiz").classList.remove("hidden");
+    }
+
+    function renderCurrentQuestion() {
+      const q = activeQuizData.questions[activeQuizData.currentIndex];
+      const idx = activeQuizData.currentIndex;
+
+      document.getElementById("quizCurrentIndex").textContent = idx + 1;
+      document.getElementById("quizQuestionCountBadge").textContent = `Soal ${idx + 1} dari ${activeQuizData.questions.length}`;
+
+      // Difficulty badge styling
+      const diffBadge = document.getElementById("quizDiffBadge");
+      diffBadge.textContent = q.level;
+      if (q.level === "HOTS") {
+        diffBadge.className = "text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full text-white badge-hots";
+      } else if (q.level === "Sedang") {
+        diffBadge.className = "text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full text-white badge-medium";
+      } else {
+        diffBadge.className = "text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full text-white badge-easy";
+      }
+
+      // Type Badge
+      const typeBadge = document.getElementById("quizTypeBadge");
+      const multiNotice = document.getElementById("quizMultiSelectNotice");
+      if (q.type === "multiple") {
+        typeBadge.textContent = "Pilihan Ganda Kompleks";
+        multiNotice.classList.remove("hidden");
+      } else {
+        typeBadge.textContent = "Pilihan Ganda (Tunggal)";
+        multiNotice.classList.add("hidden");
+      }
+
+      // Question Text
+      document.getElementById("quizQuestionText").textContent = q.question;
+
+      // Options rendering
+      const optionsContainer = document.getElementById("quizOptionsContainer");
+      optionsContainer.innerHTML = "";
+
+      const userSelected = activeQuizData.answers[idx] || [];
+
+      q.options.forEach((optText, optIdx) => {
+        const isSelected = userSelected.includes(optIdx);
+
+        const optBtn = document.createElement("button");
+        optBtn.type = "button";
+        optBtn.onclick = () => selectOption(optIdx);
+        optBtn.className = `w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all duration-200 flex items-start gap-3 ${
+          isSelected
+            ? "bg-cyan-950/80 border-cyan-500 text-cyan-200 glow-cyan ring-1 ring-cyan-500"
+            : "bg-slate-950/60 border-slate-800 text-slate-300 hover:bg-slate-800/80 hover:border-slate-700"
+        }`;
+
+        optBtn.innerHTML = `
+          <span class="w-6 h-6 rounded-lg flex items-center justify-center font-mono text-xs flex-shrink-0 ${
+            isSelected ? "bg-cyan-500 text-slate-950 font-bold" : "bg-slate-800 text-slate-400"
+          }">
+            ${String.fromCharCode(65 + optIdx)}
+          </span>
+          <span class="flex-1 pt-0.5">${optText}</span>
+        `;
+
+        optionsContainer.appendChild(optBtn);
+      });
+
+      // Navigation Buttons state
+      const btnPrev = document.getElementById("btnQuizPrev");
+      const btnNext = document.getElementById("btnQuizNext");
+      const btnSubmit = document.getElementById("btnQuizSubmit");
+
+      btnPrev.disabled = idx === 0;
+
+      if (idx === activeQuizData.questions.length - 1) {
+        btnNext.classList.add("hidden");
+        btnSubmit.classList.remove("hidden");
+      } else {
+        btnNext.classList.remove("hidden");
+        btnSubmit.classList.add("hidden");
+      }
+    }
+
+    function selectOption(optIdx) {
+      const q = activeQuizData.questions[activeQuizData.currentIndex];
+      const currentSelected = activeQuizData.answers[activeQuizData.currentIndex] || [];
+
+      if (q.type === "single") {
+        activeQuizData.answers[activeQuizData.currentIndex] = [optIdx];
+      } else {
+        // Multi-select toggle
+        if (currentSelected.includes(optIdx)) {
+          activeQuizData.answers[activeQuizData.currentIndex] = currentSelected.filter(i => i !== optIdx);
+        } else {
+          activeQuizData.answers[activeQuizData.currentIndex] = [...currentSelected, optIdx];
+        }
+      }
+      renderCurrentQuestion();
+    }
+
+    function quizPrevQuestion() {
+      if (activeQuizData.currentIndex > 0) {
+        activeQuizData.currentIndex--;
+        renderCurrentQuestion();
+      }
+    }
+
+    function quizNextQuestion() {
+      if (activeQuizData.currentIndex < activeQuizData.questions.length - 1) {
+        activeQuizData.currentIndex++;
+        renderCurrentQuestion();
+      }
+    }
+
+    function quizSubmitConfirmation() {
+      // Periksa berapa soal yang belum terjawab
+      const answeredCount = Object.keys(activeQuizData.answers).filter(k => activeQuizData.answers[k].length > 0).length;
+      const total = activeQuizData.questions.length;
+
+      if (answeredCount < total) {
+        const confirmUnfinished = window.confirm(`Perhatian: Anda baru menjawab ${answeredCount} dari ${total} soal. Yakin ingin mengumpulkan evaluasi sekarang?`);
+        if (!confirmUnfinished) return;
+      }
+
+      calculateAndShowResult();
+    }
+
+    /* ========================================================
+       10. GRADING, KKM EVALUATION & GAS SYNC
+       ======================================================== */
+    function calculateAndShowResult() {
+      const totalQuestions = activeQuizData.questions.length;
+      let correctAnswersCount = 0;
+
+      activeQuizData.questions.forEach((q, idx) => {
+        const userAns = (activeQuizData.answers[idx] || []).sort().join(",");
+        const correctAns = [...q.correct].sort().join(",");
+        if (userAns === correctAns && userAns !== "") {
+          correctAnswersCount++;
+        }
+      });
+
+      // Hitung skor berbasis skala 100
+      const calculatedScore = Math.round((correctAnswersCount / totalQuestions) * 100);
+      const isPassed = calculatedScore >= KKM_SCORE;
+      const babKey = activeQuizData.babId;
+
+      // Update student record
+      if (!currentStudent[babKey]) {
+        currentStudent[babKey] = { openedMaterial: true, score: calculatedScore, passed: isPassed, attempts: 1 };
+      } else {
+        currentStudent[babKey].score = calculatedScore;
+        currentStudent[babKey].passed = isPassed;
+        currentStudent[babKey].attempts = (currentStudent[babKey].attempts || 0) + 1;
+      }
+
+      // Jika belum lulus KKM, tutup materi kembali agar anak belajar ulang sebelum remidi
+      if (!isPassed && babKey !== "finalExam") {
+        currentStudent[babKey].openedMaterial = false;
+      }
+
+      updateStudentInDb(currentStudent);
+
+      // Kirim hasil real-time ke Google Apps Script Spreadsheet (jika dikonfigurasi)
+      syncStudentToGoogleSheets(currentStudent);
+
+      renderResultModal(calculatedScore, isPassed, babKey);
+    }
+
+    function renderResultModal(score, isPassed, babKey) {
+      hideAllViews();
+
+      const iconWrap = document.getElementById("resultIconWrapper");
+      const titleTag = document.getElementById("resultChapterTitle");
+      const heading = document.getElementById("resultStatusHeading");
+      const feedback = document.getElementById("resultFeedbackMsg");
+      const scoreVal = document.getElementById("resultScoreValue");
+      const attemptVal = document.getElementById("resultAttemptValue");
+      const btnRemedy = document.getElementById("btnResultRemedy");
+
+      titleTag.textContent = activeQuizData.title;
+      scoreVal.textContent = score;
+
+      const attemptsTaken = currentStudent[babKey].attempts;
+
+      if (isPassed) {
+        iconWrap.className = "w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl shadow-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 glow-emerald";
+        iconWrap.innerHTML = '<i class="fa-solid fa-trophy"></i>';
+        heading.textContent = "SELAMAT! ANDA TUNTAS KKM";
+        heading.className = "text-2xl font-black text-emerald-400 mt-1";
+        feedback.textContent = `Luar biasa! Kompetensi Anda terbukti tuntas (Skor ${score} >= KKM 75). Silakan melanjutkan ke materi berikutnya.`;
+        attemptVal.textContent = `Tuntas di Percobaan ke-${attemptsTaken}`;
+        btnRemedy.classList.add("hidden");
+      } else {
+        iconWrap.className = "w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl shadow-xl bg-rose-500/20 text-rose-400 border border-rose-500/40";
+        iconWrap.innerHTML = '<i class="fa-solid fa-book-skull"></i>';
+        heading.textContent = "BELUM MENCAPAI KKM";
+        heading.className = "text-2xl font-black text-rose-400 mt-1";
+
+        if (attemptsTaken < 2) {
+          feedback.textContent = `Skor Anda ${score} (KKM: 75). Anda diwajibkan mempelajari kembali ringkasan materi visual secara cermat. Masih ada 1 KESEMPATAN REMIDI untuk Anda!`;
+          attemptVal.textContent = "Tersisa 1x Remidi";
+          btnRemedy.classList.remove("hidden");
+        } else {
+          feedback.textContent = `Skor Anda ${score}. Anda telah menggunakan 2 kali kesempatan pengerjaan. Silakan menemui Bu Fitri Ainun Rosita, S.Pd. untuk pendampingan mandiri.`;
+          attemptVal.textContent = "Kesempatan Habis";
+          btnRemedy.classList.add("hidden");
+        }
+      }
+
+      document.getElementById("viewQuizResult").classList.remove("hidden");
+    }
+
+    function startRemedialStudy() {
+      if (activeQuizData && activeQuizData.babId) {
+        openMaterialView(activeQuizData.babId);
+      } else {
+        backToDashboard();
+      }
+    }
+
+    /* ========================================================
+       11. GURU / ADMIN PORTAL & GOOGLE APPS SCRIPT SYNC
+       ======================================================== */
+    function openAdminModal() {
+      document.getElementById("inputAdminPin").value = "";
+      document.getElementById("modalAdminPin").classList.remove("hidden");
+    }
+
+    function closeAdminPinModal() {
+      document.getElementById("modalAdminPin").classList.add("hidden");
+    }
+
+    function verifyAdminPin() {
+      const pin = document.getElementById("inputAdminPin").value.trim();
+      if (pin === DEFAULT_ADMIN_PIN) {
+        closeAdminPinModal();
+        hideAllViews();
+        renderAdminTable();
+        document.getElementById("viewAdminPortal").classList.remove("hidden");
+        showToast("Akses Portal Guru Berhasil Diverifikasi.", "success");
+      } else {
+        showToast("PIN akses guru salah! Silakan coba lagi.", "error");
+      }
+    }
+
+    function closeAdminPortal() {
+      if (currentStudent) {
+        showDashboardView();
+      } else {
+        showLoginView();
+      }
+    }
+
+    function renderAdminTable() {
+      const allStudents = getAllStudents();
+      const filterClass = document.getElementById("adminFilterClass").value;
+      const searchKey = document.getElementById("adminSearchStudent").value.toLowerCase();
+
+      const tbody = document.getElementById("adminTableBody");
+      tbody.innerHTML = "";
+
+      const filtered = allStudents.filter(std => {
+        const matchClass = filterClass === "ALL" || std.studentClass === filterClass;
+        const matchName = std.name.toLowerCase().includes(searchKey);
+        return matchClass && matchName;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="10" class="p-8 text-center text-slate-500 italic">
+              Belum ada data siswa yang terekam atau tidak cocok dengan filter pencarian.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      filtered.forEach((std, idx) => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-slate-800/40 transition border-b border-slate-800/60";
+
+        const b1 = std.bab1?.score !== null ? std.bab1.score : "-";
+        const b2 = std.bab2?.score !== null ? std.bab2.score : "-";
+        const b3 = std.bab3?.score !== null ? std.bab3.score : "-";
+        const b4 = std.bab4?.score !== null ? std.bab4.score : "-";
+        const fe = std.finalExam?.score !== null ? std.finalExam.score : "-";
+
+        const badgePass = (val) => {
+          if (val === "-") return '<span class="text-slate-500">-</span>';
+          if (val >= 75) return `<span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 font-bold border border-emerald-800">${val}</span>`;
+          return `<span class="px-2 py-0.5 rounded bg-rose-950 text-rose-400 font-bold border border-rose-800">${val}</span>`;
+        };
+
+        tr.innerHTML = `
+          <td class="p-3.5 text-slate-400 font-mono">${idx + 1}</td>
+          <td class="p-3.5 font-bold text-slate-100">${std.name}</td>
+          <td class="p-3.5 font-mono text-cyan-400">${std.studentClass}</td>
+          <td class="p-3.5 text-center font-mono">${badgePass(b1)}</td>
+          <td class="p-3.5 text-center font-mono">${badgePass(b2)}</td>
+          <td class="p-3.5 text-center font-mono">${badgePass(b3)}</td>
+          <td class="p-3.5 text-center font-mono">${badgePass(b4)}</td>
+          <td class="p-3.5 text-center font-mono">${badgePass(fe)}</td>
+          <td class="p-3.5 text-center">
+            ${
+              std.finalExam?.passed
+                ? '<span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 font-bold">LULUS / TUNTAS</span>'
+                : '<span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800 font-bold">DALAM PROSES</span>'
+            }
+          </td>
+          <td class="p-3.5 text-center">
+            <button onclick="adminDeleteStudent('${std.name}', '${std.studentClass}')" class="px-2.5 py-1 rounded bg-rose-950 hover:bg-rose-900 text-rose-400 border border-rose-800 text-[11px] font-semibold transition flex items-center gap-1 mx-auto" title="Hapus Siswa & Hapus di Spreadsheet">
+              <i class="fa-solid fa-trash-can"></i> Hapus
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function adminDeleteStudent(name, sClass) {
+      const confirmDelete = window.confirm(`Ibu Fitri, Anda yakin ingin menghapus data siswa:\nNama: ${name}\nKelas: ${sClass}?\n\nData akan dihapus dari sistem lokal dan otomatis disinkronkan ke Google Spreadsheet!`);
+      if (!confirmDelete) return;
+
+      let all = getAllStudents();
+      all = all.filter(s => !(s.name === name && s.studentClass === sClass));
+      saveAllStudents(all);
+
+      // Jika siswa yang sedang login dihapus
+      if (currentStudent && currentStudent.name === name && currentStudent.studentClass === sClass) {
+        localStorage.removeItem(STORAGE_KEY_SESSION);
+        currentStudent = null;
+      }
+
+      // Kirim sinyal hapus baris ke Google Apps Script backend
+      syncDeleteToGoogleSheets(name, sClass);
+
+      renderAdminTable();
+      showToast(`Data siswa ${name} (${sClass}) berhasil dihapus.`, "success");
+    }
+
+    function exportToCSV() {
+      const all = getAllStudents();
+      if (all.length === 0) {
+        showToast("Belum ada data nilai untuk diekspor!", "warning");
+        return;
+      }
+
+      let csv = "No,Nama Siswa,Kelas,Bab 1 (TP 1-2),Bab 2 (TP 3-4),Bab 3 (TP 5-6),Bab 4 (TP 7-8),Final Exam,Status Akhir,Terdaftar Pada\n";
+
+      all.forEach((s, idx) => {
+        csv += `"${idx + 1}","${s.name}","${s.studentClass}","${s.bab1?.score ?? 0}","${s.bab2?.score ?? 0}","${s.bab3?.score ?? 0}","${s.bab4?.score ?? 0}","${s.finalExam?.score ?? 0}","${s.finalStatus}","${s.registeredAt}"\n`;
+      });
+
+      const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Rekap_Nilai_TJKT_X_SMKSIslam1_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast("File rekap nilai (CSV) berhasil diunduh!", "success");
+    }
+
+    /* Google Apps Script Integration Logic */
+    function loadGasUrlSetting() {
+      const savedUrl = localStorage.getItem(STORAGE_KEY_GAS_URL);
+      if (savedUrl) {
+        const input = document.getElementById("inputGasUrl");
+        if (input) input.value = savedUrl;
+        document.getElementById("gasStatusText").innerHTML = `<span class="text-cyan-400 font-bold"><i class="fa-solid fa-link"></i> Terhubung ke:</span> ${savedUrl.substring(0, 45)}...`;
+      }
+    }
+
+    function saveGasUrl() {
+      const url = document.getElementById("inputGasUrl").value.trim();
+      localStorage.setItem(STORAGE_KEY_GAS_URL, url);
+      loadGasUrlSetting();
+      showToast("URL Google Apps Script berhasil disimpan!", "success");
+    }
+
+    function syncStudentToGoogleSheets(student) {
+      const gasUrl = localStorage.getItem(STORAGE_KEY_GAS_URL);
+      if (!gasUrl) return; // Belum dikonfigurasi oleh guru
+
+      const payload = {
+        action: "RECORD_GRADE",
+        studentName: student.name,
+        studentClass: student.studentClass,
+        bab1: student.bab1?.score ?? 0,
+        bab2: student.bab2?.score ?? 0,
+        bab3: student.bab3?.score ?? 0,
+        bab4: student.bab4?.score ?? 0,
+        finalExam: student.finalExam?.score ?? 0,
+        status: student.finalStatus || "Dalam Pembelajaran"
+      };
+
+      // Gunakan fetch dengan mode no-cors jika diperlukan pada Google Apps Script Web App
+      fetch(gasUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(() => {
+        console.log("Sinkronisasi real-time ke Google Spreadsheet sukses.");
+      }).catch(err => {
+        console.warn("Gagal sinkronisasi Google Apps Script:", err);
+      });
+    }
+
+    function syncDeleteToGoogleSheets(studentName, studentClass) {
+      const gasUrl = localStorage.getItem(STORAGE_KEY_GAS_URL);
+      if (!gasUrl) return;
+
+      const payload = {
+        action: "DELETE_STUDENT",
+        studentName: studentName,
+        studentClass: studentClass
+      };
+
+      fetch(gasUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(() => {
+        console.log("Perintah hapus siswa dikirim ke Google Sheets.");
+      }).catch(err => {
+        console.warn("Error pengiriman delete ke Google Apps Script:", err);
+      });
+    }
+
+    function openAppsScriptModal() {
+      document.getElementById("modalAppsScript").classList.remove("hidden");
+    }
+
+    function closeAppsScriptModal() {
+      document.getElementById("modalAppsScript").classList.add("hidden");
+    }
+
+    function copyGasCode() {
+      const text = document.getElementById("gasCodeText").innerText;
+      const tempArea = document.createElement("textarea");
+      tempArea.value = text;
+      document.body.appendChild(tempArea);
+      tempArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempArea);
+      showToast("Kode Google Apps Script berhasil disalin ke clipboard!", "success");
+    }
+
+    /* ========================================================
+       12. INTERACTIVE TOAST FEEDBACK NOTIFICATIONS
+       ======================================================== */
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+
+      let bgClass = "bg-slate-900 border-slate-700 text-slate-100";
+      let icon = '<i class="fa-solid fa-circle-info text-cyan-400"></i>';
+
+      if (type === "success") {
+        bgClass = "bg-slate-900 border-emerald-600/80 text-emerald-100";
+        icon = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+      } else if (type === "warning") {
+        bgClass = "bg-slate-900 border-amber-600/80 text-amber-100";
+        icon = '<i class="fa-solid fa-triangle-exclamation text-amber-400"></i>';
+      } else if (type === "error") {
+        bgClass = "bg-slate-900 border-rose-600/80 text-rose-100";
+        icon = '<i class="fa-solid fa-circle-xmark text-rose-400"></i>';
+      }
+
+      toast.className = `p-3.5 rounded-xl border shadow-2xl flex items-center gap-3 text-xs pointer-events-auto transform transition-all duration-300 translate-y-2 opacity-0 max-w-sm ${bgClass}`;
+      toast.innerHTML = `
+        <div class="text-base">${icon}</div>
+        <div class="flex-1 font-medium leading-tight">${message}</div>
+      `;
+
+      container.appendChild(toast);
+
+      // Animate in
+      requestAnimationFrame(() => {
+        toast.classList.remove("translate-y-2", "opacity-0");
+      });
+
+      setTimeout(() => {
+        toast.classList.add("translate-y-2", "opacity-0");
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
