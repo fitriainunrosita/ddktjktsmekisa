@@ -343,7 +343,7 @@
       <p class="text-xs text-slate-400 leading-relaxed">
         Masukkan URL Web App Google Apps Script Anda (berakhiran <code>/exec</code>) agar nilai otomatis tersimpan ke Google Spreadsheet secara realtime.
       </p>
-      <input type="url" id="input-gas-url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white font-mono focus:outline-none focus:border-indigo-500">
+      <input type="url" id="input-gas-url" placeholder="https://script.google.com/macros/s/AKfycbzNMqW_rnmh4rHNq9sejX8zXq-M_KHt9jXybXtPMzjiBrv0POT_M-MguOHlp9-RmrZN/exec" class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white font-mono focus:outline-none focus:border-indigo-500">
       <div class="flex justify-end gap-2 pt-2">
         <button onclick="closeAppsScriptModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold">Tutup</button>
         <button onclick="saveAppsScriptUrl()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold">Simpan URL</button>
@@ -2344,7 +2344,7 @@
     }
 
     function getAppsScriptUrl() {
-      return localStorage.getItem("tjkt_gas_url") || "https://script.google.com/macros/s/AKfycbz9Y4f2zHLPXTA7JSs5DhxFCbzTABS-PxqRjT60q1jb6KnRTIC4FPPOj8Efgr8X4koK/exec";
+      return localStorage.getItem("tjkt_gas_url") || "https://script.google.com/macros/s/AKfycbzNMqW_rnmh4rHNq9sejX8zXq-M_KHt9jXybXtPMzjiBrv0POT_M-MguOHlp9-RmrZN/exec";
     }
 
     /* =====================================================================
